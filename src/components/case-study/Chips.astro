@@ -1,0 +1,16 @@
+---
+// Team + timeframe row under a case-study title.
+import Meta from '../Meta.astro';
+
+interface Props {
+  team: string;
+  time?: string;
+}
+
+const { team, time } = Astro.props;
+---
+
+<div class="cs-chips">
+  <Meta icon="users" label={team} size="medium" />
+  {time && <Meta icon="calendar" label={time} size="medium" />}
+</div>

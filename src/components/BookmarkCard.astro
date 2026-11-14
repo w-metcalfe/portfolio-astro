@@ -1,0 +1,169 @@
+---
+// Linked resource card: thumbnail, title, category and a trailing icon.
+import Img from './Img.astro';
+import Icon from './Icon.astro';
+import type { IconName } from './icons';
+
+interface Props {
+  title: string;
+  category: string;
+  href: string;
+  image: string;
+  /** "icon" = 26px thumbnail + link icon; "small" = 40px thumbnail + arrow that rotates on hover */
+  variant?: 'icon' | 'small';
+  icon?: IconName;
+}
+
+const { title, category, href, image, variant = 'icon', icon = variant === 'small' ? 'arrow-up-right' : 'bookmark-link' } = Astro.props;
+---
+
+<a class:list={['bookmark', `bookmark--${variant}`]} href={href} target="_blank" rel="noopener">
+  <div class="bookmark__row">
+    <div class="bookmark__thumb-wrap">
+      <div class="bookmark__thumb">
+        <Img src={image} sizes="40px" widths={[80, 120]} />
+      </div>
+    </div>
+    <div class="bookmark__text">
+      <div class="bookmark__title">
+        <p>{title}</p>
+      </div>
+      <div class="bookmark__category">
+        <p>{category}</p>
+      </div>
+    </div>
+    <div class="bookmark__icon">
+      <Icon name={icon} size={20} />
+    </div>
+  </div>
+</a>
+
+<style>
+  .bookmark {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: var(--surface-1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition:
+      background-color var(--spring-500-60-d) var(--spring-500-60),
+      box-shadow var(--spring-500-60-d) var(--spring-500-60);
+  }
+  .bookmark__row {
+    display: flex;
+    flex: none;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .bookmark__thumb-wrap {
+    display: flex;
+    flex: none;
+    align-items: center;
+    padding-top: 4px;
+  }
+  .bookmark__thumb {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .bookmark__text {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    width: 1px;
+    overflow: hidden;
+  }
+  .bookmark__title,
+  .bookmark__category {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    white-space: pre-wrap;
+  }
+  .bookmark__title {
+    width: 100%;
+    max-width: 350px;
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--text-90);
+  }
+  .bookmark__category {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--text-50);
+  }
+  .bookmark__icon {
+    display: flex;
+    flex: none;
+    justify-content: center;
+    align-self: stretch;
+    align-items: center;
+    color: var(--text-50);
+    transition:
+      color var(--spring-500-60-d) var(--spring-500-60),
+      transform var(--spring-500-60-d) var(--spring-500-60);
+  }
+
+  .bookmark:hover {
+    background-color: var(--surface-3);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.06);
+  }
+  .bookmark:hover .bookmark__icon {
+    color: var(--white);
+  }
+
+  /* Small variant */
+  .bookmark--small .bookmark__row {
+    align-items: center;
+  }
+  .bookmark--small .bookmark__thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  .bookmark--small .bookmark__text {
+    gap: 4px;
+  }
+  .bookmark--small .bookmark__title {
+    max-width: 400px;
+  }
+  .bookmark--small::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--border);
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--spring-500-60-d) var(--spring-500-60);
+  }
+  .bookmark--small:hover::after {
+    opacity: 1;
+  }
+  .bookmark--small:hover .bookmark__icon :global(.icon) {
+    transform: rotate(45deg);
+  }
+  .bookmark--small .bookmark__icon :global(.icon) {
+    transition: transform var(--spring-500-60-d) var(--spring-500-60);
+  }
+</style>

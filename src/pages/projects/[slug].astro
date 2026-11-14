@@ -1,0 +1,44 @@
+---
+// Case-study pages, one per MDX file in src/content/case-studies (the file name is the slug).
+import '../../styles/article.css';
+import '../../styles/lightbox.css';
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import MessagePanel from '../../components/MessagePanel.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+import { caseStudyComponents } from '../../components/case-study';
+
+export async function getStaticPaths() {
+  const studies = await getCollection('caseStudies');
+  return studies.map((study) => ({ params: { slug: study.id }, props: { study } }));
+}
+
+const { study } = Astro.props;
+const { Content } = await render(study);
+---
+
+<Base title={study.data.title} description={study.data.description} active="projects">
+  <Section pb={72} gap={52} bottomRule class="case-study">
+    <Content components={caseStudyComponents} />
+  </Section>
+
+  <MessagePanel
+    emoji="📮"
+    title="Stay connected"
+    text="From time to time, I share updates about new work and the ideas shaping my design story. If you’d like to stay connected, you’re welcome to subscribe."
+  >
+    <NewsletterForm />
+  </MessagePanel>
+</Base>
+
+<script>
+  import { initLightbox } from '../../scripts/lightbox';
+  initLightbox();
+</script>
+
+<style>
+  .case-study :global(.section__inner) {
+    align-items: center;
+  }
+</style>

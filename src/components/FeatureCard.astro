@@ -1,0 +1,252 @@
+---
+// Photo card with a dark vignette, optional badge/year, a title and optional body text.
+// Used for home-page spotlights and for callouts inside case studies.
+import Img from './Img.astro';
+import Badge from './Badge.astro';
+import Segments from './Segments.astro';
+import type { Segment, Responsive } from '../data/types';
+import type { BadgeColor } from '../data/projects';
+
+interface Props {
+  image: string;
+  /** Different photo on mobile */
+  imageMobile?: string;
+  badge?: string;
+  badgeColor?: BadgeColor;
+  year?: string;
+  title?: Segment[];
+  text?: Segment[];
+  /** CSS padding of the content area */
+  padding?: Responsive<string>;
+  /** Content height: px number, "min-content" (hug) or "100%" (fill the row) */
+  height?: Responsive<number | string>;
+  titleMaxWidth?: Responsive<number>;
+  textMaxWidth?: Responsive<number>;
+  sizes?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  image,
+  imageMobile,
+  badge,
+  badgeColor = 'grey',
+  year,
+  title,
+  text,
+  padding = '36px 32px',
+  height = 400,
+  titleMaxWidth,
+  textMaxWidth,
+  sizes,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const isResponsive = (v: unknown): v is { d: unknown; t: unknown; m: unknown } => typeof v === 'object' && v !== null && 'd' in v;
+const cssLength = (v: number | string | null | undefined, fallback: string) =>
+  v === null || v === undefined ? fallback : typeof v === 'number' ? `${v}px` : v === 'min-content' ? 'auto' : v;
+const vars: string[] = [];
+const addVar = (name: string, value: Responsive<number | string> | undefined, fallback: string) => {
+  if (value === undefined) return;
+  if (isResponsive(value)) {
+    vars.push(
+      `--${name}:${cssLength(value.d as number | string | null, fallback)}`,
+      `--${name}-t:${cssLength(value.t as number | string | null, fallback)}`,
+      `--${name}-m:${cssLength(value.m as number | string | null, fallback)}`,
+    );
+  } else vars.push(`--${name}:${cssLength(value, fallback)}`);
+};
+addVar('card-pad', padding, '36px 32px');
+addVar('card-h', height, 'auto');
+addVar('card-title-w', titleMaxWidth, 'none');
+addVar('card-text-w', textMaxWidth, 'none');
+const hasBody = Boolean(text);
+---
+
+<div class:list={['feature-card', className]} style={vars.join(';')} {...rest}>
+  <div class:list={['feature-card__photo', { 'feature-card__photo--wide': Boolean(imageMobile) }]}>
+    <Img src={image} sizes={sizes ?? '(min-width: 1000px) 790px, 100vw'} widths={[512, 1024, 1600]} />
+  </div>
+  {imageMobile && (
+    <div class="feature-card__photo feature-card__photo--mobile">
+      <Img src={imageMobile} sizes="100vw" widths={[512, 1024]} />
+    </div>
+  )}
+  <div class="feature-card__content bordered">
+    <div class:list={['feature-card__layout', { 'feature-card__layout--spread': hasBody }]}>
+      <div class="feature-card__top">
+        {badge && year ? (
+          <div class="feature-card__tags">
+            <Badge label={badge} color={badgeColor} />
+            <p class="feature-card__year">{year}</p>
+          </div>
+        ) : (
+          badge && <Badge label={badge} color={badgeColor} />
+        )}
+        {title && (
+          <h3 class="feature-card__title">
+            <Segments segments={title} />
+          </h3>
+        )}
+      </div>
+      {text && (
+        <p class="feature-card__text">
+          <Segments segments={text} />
+        </p>
+      )}
+    </div>
+  </div>
+  <div class="feature-card__grain" aria-hidden="true"></div>
+</div>
+
+<style>
+  .feature-card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 -48px 28px 0 rgba(22, 22, 23, 0.2);
+  }
+  .feature-card__photo {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+  }
+  .feature-card__photo--mobile {
+    display: none;
+  }
+  @media (max-width: 809.98px) {
+    .feature-card__photo--wide {
+      display: none;
+    }
+    .feature-card__photo--mobile {
+      display: block;
+    }
+  }
+  .feature-card__content {
+    z-index: 1;
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    height: var(--card-h, auto);
+    padding: var(--card-pad);
+    overflow: hidden;
+    border-radius: 12px;
+    background: radial-gradient(61% 50% at 65.5% 37.1%, rgba(0, 0, 0, 0.4) 0%, rgb(23, 23, 23) 100%);
+    --bs: dashed;
+    --bc: rgba(255, 255, 255, 0.1);
+  }
+  .feature-card__layout {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    overflow: hidden;
+  }
+  .feature-card__layout--spread {
+    flex: 1 0 0;
+    justify-content: space-between;
+    height: 1px;
+  }
+  .feature-card__top {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 18px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .feature-card__tags {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .feature-card__year {
+    flex: none;
+    font-size: 13px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text-60);
+    white-space: pre;
+  }
+  .feature-card__title {
+    width: 100%;
+    max-width: var(--card-title-w, none);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--text-90);
+  }
+  .feature-card__title :global(strong) {
+    font-weight: 700;
+  }
+  .feature-card__text {
+    flex: none;
+    width: 100%;
+    max-width: var(--card-text-w, none);
+    font-size: 15px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    color: var(--text-80);
+  }
+  .feature-card__grain {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 32px;
+    opacity: 0.14;
+    mix-blend-mode: overlay;
+    background: url('/textures/grain.png') 0 0 / 128px auto repeat;
+    pointer-events: none;
+  }
+
+  @media (min-width: 810px) and (max-width: 999.98px) {
+    .feature-card__content {
+      height: var(--card-h-t, var(--card-h, auto));
+      padding: var(--card-pad-t, var(--card-pad));
+    }
+    .feature-card__title {
+      max-width: var(--card-title-w-t, var(--card-title-w, none));
+    }
+    .feature-card__text {
+      max-width: var(--card-text-w-t, var(--card-text-w, none));
+    }
+  }
+  @media (max-width: 809.98px) {
+    .feature-card__content {
+      height: var(--card-h-m, var(--card-h, auto));
+      padding: var(--card-pad-m, var(--card-pad));
+    }
+    .feature-card__title {
+      max-width: var(--card-title-w-m, var(--card-title-w, none));
+    }
+    .feature-card__text {
+      max-width: var(--card-text-w-m, var(--card-text-w, none));
+    }
+  }
+  @media (max-width: 999.98px) {
+    .feature-card__title {
+      font-size: 20px;
+    }
+  }
+</style>

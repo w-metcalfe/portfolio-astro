@@ -1,0 +1,360 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import HeroButton from '../components/HeroButton.astro';
+import Meteors from '../components/Meteors.astro';
+import Img from '../components/Img.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ExperienceList from '../components/ExperienceList.astro';
+import SpotlightCard from '../components/SpotlightCard.astro';
+import BookmarkCard from '../components/BookmarkCard.astro';
+import Faq from '../components/Faq.astro';
+import MessagePanel from '../components/MessagePanel.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { projects } from '../data/projects';
+import { experience, spotlights, faqs } from '../data/home';
+import { featuredBookmarks } from '../data/bookmarks';
+---
+
+<Base active="home" compactTop={72}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__content">
+      <div class="hero__intro">
+        <div class="hero__status">
+          <span class="hero__status-logo bordered">
+            <Img src="Y7BLQMe86WEh0x01uxnNtTQnH7U.png" sizes="26px" widths={[52, 78]} loading="eager" />
+          </span>
+          <p>Lead UX Designer @ GIANT Creative</p>
+        </div>
+        <div class="hero__text">
+          <h1 class="hero__title">
+            I’m William, a UX & Product Designer dedicated to shaping thoughtful, <span>human-centered solutions for real-world needs.</span>
+          </h1>
+          <p class="hero__lead">I specialize in translating complex problems into simple, validated solutions grounded in user research.</p>
+        </div>
+      </div>
+      <div class="hero__actions">
+        <HeroButton href="/projects" label="See my work" />
+      </div>
+      <div class="hero__previously">
+        <p>PREVIOUSLY:</p>
+        <p>RBC, WILLIAM & MARY, PEEKAPAK, SMASHING PIXELS</p>
+      </div>
+    </div>
+    <Meteors />
+  </section>
+
+  <!-- Featured work -->
+  <Section dots>
+    <SectionHeader title="Featured work" linkLabel="View all projects" linkHref="/projects" />
+    <div class="cards">
+      {projects.map((project, i) => (
+        <ProjectCard project={project} appear={i > 0} loading={i === 0 ? 'eager' : 'lazy'} />
+      ))}
+    </div>
+  </Section>
+
+  <!-- About -->
+  <Section flush pb={72} pbCompact={64} gap={20} class="about">
+    <div class="about__content">
+      <div class="about__top">
+        <SectionHeader title="About me" linkLabel="View my journey" linkHref="/about" />
+        <div class="prose">
+          <p>
+            I’m William, a UX & Product Designer based in London, ON, currently working as a Lead UX Designer at{' '}
+            <a href="https://giantcreative.ca" target="_blank" rel="noopener">
+              <strong>GIANT Creative.</strong>
+            </a>
+          </p>
+          <p>
+            <br />
+          </p>
+          <p>
+            I’ve spent my career moving across the product development spectrum, which has shaped how I design today. My experience spans UX design, UX
+            research, and product design, giving me a balanced view of both user needs and business goals. I enjoy working end-to-end—from unpacking complex
+            problems to shaping intuitive, evidence-driven solutions that teams can ship with confidence.
+          </p>
+          <p>
+            <br />
+          </p>
+          <p>
+            My curiosity tends to spill beyond design, too. I build my own computers, including a personal media server I maintain and tinker with. Lately, I’ve
+            been getting into drone photography and videography, which I've really been enjoying learning.
+          </p>
+        </div>
+      </div>
+      <ExperienceList items={experience} desktopLimit={5} />
+    </div>
+  </Section>
+
+  <!-- Spotlights -->
+  <Section>
+    <p class="section-title" style="width:322px">
+      Spotlights
+    </p>
+    <div class="cards">
+      {spotlights.map((item) => (
+        <SpotlightCard item={item} />
+      ))}
+    </div>
+  </Section>
+
+  <!-- Bookmarks -->
+  <Section pb={72} gap={20}>
+    <div class="bookmarks">
+      <SectionHeader title="Bookmarks" linkLabel="View all bookmarks" linkHref="/bookmarks" />
+      <div class="bookmarks__grid">
+        {featuredBookmarks.map((bookmark, i) => (
+          <div class="bookmarks__cell" style={i === 2 ? 'height:129px' : undefined}>
+            <BookmarkCard {...bookmark} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <Section pb={88}>
+    <p class="section-title" style="width:402px">
+      Quick answers
+    </p>
+    <Faq items={faqs} />
+  </Section>
+
+  <!-- Newsletter -->
+  <MessagePanel
+    emoji="📮"
+    title="Stay connected"
+    text="From time to time, I share updates about new work and the ideas shaping my design story. If you’d like to stay connected, you’re welcome to subscribe."
+  >
+    <NewsletterForm />
+  </MessagePanel>
+</Base>
+
+<script>
+  import { initSpotlights } from '../scripts/spotlights';
+  initSpotlights();
+</script>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    max-width: var(--content-width);
+    padding: 80px 48px 40px;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 0 dashed var(--border);
+    border-width: 0 1px;
+    pointer-events: none;
+  }
+  .hero__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+  }
+  .hero__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+  }
+  .hero__status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .hero__status-logo {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 72px;
+    --bc: rgb(84, 84, 84);
+  }
+  .hero__status p {
+    flex: 1 0 0;
+    width: 1px;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--text-50);
+  }
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .hero__title {
+    width: 100%;
+    max-width: 550px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--white);
+  }
+  .hero__title span {
+    color: var(--text-60);
+  }
+  .hero__lead {
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    color: var(--text-60);
+  }
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: min-content;
+  }
+  .hero__previously {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    padding-top: 44px;
+    overflow: hidden;
+  }
+  .hero__previously p {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text-40);
+  }
+
+  /* ---------- Shared bits ---------- */
+  .cards {
+    position: relative;
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 44px;
+    width: 100%;
+  }
+  .section-title {
+    position: relative;
+    z-index: 2;
+    flex: none;
+    max-width: 100%;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    color: var(--text-60);
+  }
+
+  /* ---------- About ---------- */
+  .about {
+    overflow: hidden;
+  }
+  .about__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .about__top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .prose {
+    width: 100%;
+  }
+  .prose p {
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    color: var(--white);
+  }
+  .prose a {
+    color: rgb(15, 171, 255);
+    text-decoration: underline;
+  }
+  .prose strong {
+    font-weight: 700;
+  }
+
+  /* ---------- Bookmarks ---------- */
+  .bookmarks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+  }
+  .bookmarks__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(50px, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .bookmarks__cell {
+    place-self: start;
+    width: 100%;
+    height: 128px;
+  }
+
+  @media (max-width: 999.98px) {
+    .hero {
+      max-width: none;
+      padding: 64px 40px 40px;
+    }
+    .hero::after {
+      display: none;
+    }
+    .bookmarks__grid {
+      grid-template-columns: repeat(1, minmax(50px, 1fr));
+    }
+  }
+
+  @media (max-width: 809.98px) {
+    .hero {
+      max-width: var(--content-width);
+      padding: 64px 20px 40px;
+    }
+    .hero__title {
+      font-size: 32px;
+      line-height: 1.2;
+    }
+    .hero__previously {
+      padding-top: 32px;
+    }
+  }
+</style>

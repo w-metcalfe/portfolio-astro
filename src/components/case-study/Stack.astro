@@ -1,0 +1,48 @@
+---
+// Layout container for case-study content: a column (or row) of blocks with a gap.
+// Defaults: column, clipped. Props mirror the Framer stacks the case studies were built from.
+import { at, vars, type ResponsiveValue } from './responsive';
+
+interface Props {
+  /** Space between children in px */
+  gap?: ResponsiveValue<number>;
+  /** Cross-axis alignment of children */
+  align?: 'start' | 'center';
+  /** Centre children along the main axis */
+  justify?: 'center';
+  /** "row" lays children side by side; { d: 'row', t: 'row', m: 'column' } stacks them on mobile */
+  dir?: ResponsiveValue<'row' | 'column'>;
+  /** Share the row with siblings (flex: 1) */
+  grow?: ResponsiveValue<boolean>;
+  height?: ResponsiveValue<number | string>;
+  padding?: ResponsiveValue<string>;
+  /** Drop the clipping (overflow: hidden) */
+  noClip?: boolean;
+  /** Breakpoints where the stack dissolves and its children join the parent's layout */
+  dissolve?: { t?: boolean; m?: boolean };
+}
+
+const { gap, align, justify, dir = 'column', grow, height, padding, noClip = false, dissolve } = Astro.props;
+const growDesktop = Boolean(at(grow, 'd'));
+---
+
+<div
+  class:list={[
+    'cs-group',
+    {
+      'cs-row': at(dir, 'd') === 'row',
+      'cs-stack-mobile': at(dir, 'd') === 'row' && at(dir, 'm') === 'column',
+      'cs-align-start': align === 'start',
+      'cs-align-center': align === 'center',
+      'cs-justify-center': justify === 'center',
+      'cs-clip': !noClip,
+      'cs-dissolve-mobile': Boolean(dissolve?.m),
+      'cs-dissolve-tablet': Boolean(dissolve?.t),
+      'cs-grow': growDesktop,
+      'cs-grow-mobile-off': growDesktop && !at(grow, 'm'),
+    },
+  ]}
+  style={[...vars('gap', gap), ...vars('pad', padding), ...vars('h', height)].join(';')}
+>
+  <slot />
+</div>

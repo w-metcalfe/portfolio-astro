@@ -1,0 +1,36 @@
+---
+// Achievement card on the home page: a FeatureCard pinned while scrolling so later cards stack over it,
+// scaled by scroll progress (see scripts/spotlights.ts).
+import FeatureCard from './FeatureCard.astro';
+import type { Spotlight } from '../data/home';
+
+interface Props {
+  item: Spotlight;
+}
+
+const { item } = Astro.props;
+---
+
+<div class="spotlight" data-spotlight style={`top:${item.stickyTop}px`}>
+  <FeatureCard
+    image={item.image}
+    badge={item.tag}
+    badgeColor={item.tagColor}
+    year={item.year}
+    title={[{ text: item.title }]}
+    text={[{ text: item.text }]}
+    titleMaxWidth={280}
+    textMaxWidth={400}
+  />
+</div>
+
+<style>
+  .spotlight {
+    position: sticky;
+    z-index: 1;
+    flex: none;
+    width: 100%;
+    transform: scale(var(--spotlight-scale, 1.12));
+    will-change: transform;
+  }
+</style>

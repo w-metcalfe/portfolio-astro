@@ -1,0 +1,18 @@
+---
+// Text link with an arrow icon. `back` puts the arrow first; `external` opens in a new tab.
+import GhostLink from '../GhostLink.astro';
+import type { IconName } from '../icons';
+
+interface Props {
+  href: string;
+  label: string;
+  back?: boolean;
+  external?: boolean;
+  /** Defaults to arrow-left for back links, arrow-up-right otherwise */
+  icon?: IconName;
+}
+
+const { href, label, back = false, external = false, icon = back ? 'arrow-left' : 'arrow-up-right' } = Astro.props;
+---
+
+<GhostLink href={href} label={label} icon={icon} back={back} external={external} />

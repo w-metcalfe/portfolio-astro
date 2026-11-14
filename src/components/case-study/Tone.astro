@@ -1,0 +1,13 @@
+---
+// Inline colour change inside a heading or paragraph: <Dim>, <Bright>, <Soft> in the MDX.
+interface Props {
+  tone: 'dim' | 'bright' | 'soft';
+  /** Font weight override, e.g. 500 */
+  weight?: number;
+}
+const { tone, weight } = Astro.props;
+---
+
+<span class:list={[`tone-${tone}`, weight && weight < 600 && `w${weight}`]}>
+  <slot />
+</span>

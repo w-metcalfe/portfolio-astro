@@ -1,0 +1,24 @@
+---
+// Splits text into words and characters for the per-character reveal animation.
+// Markup is built as a string so no stray whitespace ends up between the letters.
+// The animated letters are aria-hidden; screen readers read the visually hidden copy of the full text instead.
+interface Props {
+  text: string;
+  tag?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { text, tag: Tag = 'p', class: className, ...rest } = Astro.props;
+const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+let index = 0;
+const html = text
+  .split(' ')
+  .map(
+    (word) =>
+      `<span class="word" aria-hidden="true">${[...word].map((char) => `<span class="char" style="--i:${index++}">${escape(char)}</span>`).join('')}</span>`,
+  )
+  .join(' ');
+---
+
+<Tag class:list={['split-text', className]} {...rest} set:html={`<span class="sr-only">${escape(text)}</span>${html}`} />

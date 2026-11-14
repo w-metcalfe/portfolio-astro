@@ -1,0 +1,269 @@
+---
+// Contact form: name, email and message with a submit button that shows loading / success / error states.
+// Submissions go to Netlify Forms; behaviour lives in scripts/contact-form.ts.
+import { site } from '../data/site';
+
+interface Props {
+  /** Page to open after a successful submission */
+  redirect?: string;
+}
+
+const { redirect = '/thank-you-form' } = Astro.props;
+---
+
+<!-- Handled by Netlify Forms. Without JavaScript the browser posts the form and Netlify opens the action page. -->
+<form
+  class="contact-form bordered"
+  name={site.contactFormName}
+  method="post"
+  action={redirect}
+  data-netlify="true"
+  netlify-honeypot="company"
+  data-contact-form
+  data-redirect={redirect}
+>
+  <input type="hidden" name="form-name" value={site.contactFormName} />
+  <div class="contact-form__group">
+    <label class="field">
+      <p class="field__label">Full Name*</p>
+      <div class="field__control field__control--text">
+        <input type="text" name="name" placeholder="Enter your full name" autocomplete="name" required />
+      </div>
+    </label>
+    <label class="field">
+      <p class="field__label">Email Address*</p>
+      <div class="field__control">
+        <input type="email" name="email" placeholder="Enter your email address" autocomplete="email" required />
+      </div>
+    </label>
+  </div>
+  <label class="field">
+    <p class="field__label">Message*</p>
+    <div class="field__control field__control--area">
+      <textarea name="message" placeholder="Enter your message" rows="2" required></textarea>
+    </div>
+  </label>
+  <!-- Spam trap: hidden from people, tempting for bots -->
+  <input class="contact-form__trap" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <div class="contact-form__actions">
+    <button class="submit" type="submit" data-state="default">
+      <span class="submit__label" data-label>
+        Submit
+      </span>
+      <span class="submit__spinner" aria-hidden="true">
+        <span class="submit__conic"></span>
+      </span>
+    </button>
+  </div>
+</form>
+
+<script>
+  import { initContactForm } from '../scripts/contact-form';
+  initContactForm();
+</script>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 24px 20px 20px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--surface-1);
+  }
+  .contact-form__group {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .field {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+  .field__label {
+    flex: none;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--text-40);
+    white-space: pre;
+  }
+  .field__control {
+    position: relative;
+    display: flex;
+    flex: none;
+    align-items: center;
+    width: 100%;
+    height: 44px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--surface-2);
+  }
+  .field__control--text {
+    padding: 16px 12px;
+  }
+  .field__control--area {
+    height: auto;
+    min-height: 212px;
+    padding: 0;
+  }
+  .field__control::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(136, 136, 136, 0.1);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .field__control:focus-within::after {
+    border-color: #09f;
+  }
+  .field input,
+  .field textarea {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    background: none;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.2em;
+    letter-spacing: 0;
+    color: var(--white);
+    caret-color: var(--white);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .field input:focus-visible,
+  .field textarea:focus-visible {
+    outline: none;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--text-50);
+  }
+  .field textarea {
+    display: flex;
+    width: 100%;
+    height: auto;
+    min-height: inherit;
+    max-height: inherit;
+    padding: 12px 12px 164px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    resize: vertical;
+    white-space: break-spaces;
+  }
+  .contact-form__trap {
+    position: absolute;
+    transform: scale(0);
+  }
+  .contact-form__actions {
+    flex: none;
+    width: 100%;
+    height: 48px;
+  }
+
+  .submit {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 8px 12px;
+    overflow: hidden;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--white);
+    cursor: pointer;
+    transition: background-color 0.2s cubic-bezier(0.44, 0, 0.56, 1);
+  }
+  .submit__label {
+    flex: none;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    color: var(--surface-2);
+    white-space: pre;
+    user-select: none;
+    transition: color 0.2s cubic-bezier(0.44, 0, 0.56, 1);
+  }
+  .submit:hover,
+  .submit:active {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  .submit__spinner {
+    position: relative;
+    display: none;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2px));
+  }
+  .submit__conic {
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(from 0deg at 50% 50%, rgba(255, 255, 255, 0) 7.2deg, rgb(0, 0, 0) 342deg);
+    animation: submit-spin 1s linear infinite;
+  }
+  @keyframes submit-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .submit[data-state='pending'],
+  .submit[data-state='success'],
+  .submit[data-state='error'] {
+    cursor: default;
+  }
+  .submit[data-state='pending'],
+  .submit[data-state='success'] {
+    background-color: var(--white);
+  }
+  .submit[data-state='pending'] .submit__label {
+    display: none;
+  }
+  .submit[data-state='pending'] .submit__spinner {
+    display: block;
+  }
+  .submit[data-state='error'] {
+    background-color: rgba(255, 34, 68, 0.15);
+  }
+  .submit[data-state='error'] .submit__label {
+    color: rgb(255, 41, 41);
+  }
+
+  /* 16px inputs on phones (avoids the iOS zoom-on-focus), as in the original mobile variant */
+  @media (max-width: 809.98px) {
+    .field input,
+    .field textarea {
+      font-size: 16px;
+    }
+  }
+</style>

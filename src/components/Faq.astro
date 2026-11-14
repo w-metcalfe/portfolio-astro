@@ -1,0 +1,148 @@
+---
+// Accordion of questions. Each row toggles independently.
+import type { Faq } from '../data/home';
+
+interface Props {
+  items: Faq[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq bordered">
+  {items.map((item, i) => (
+    <div class="faq__row" data-faq-row data-open="false">
+      <button class="faq__question" type="button" aria-expanded="false" aria-controls={`faq-answer-${i}`}>
+        <span class="faq__plus" aria-hidden="true" />
+        <span class="faq__label">{item.question}</span>
+      </button>
+      <div class="faq__answer" id={`faq-answer-${i}`} hidden>
+        <p>{item.answer}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-faq-row]').forEach((row) => {
+    const button = row.querySelector('button');
+    const answer = row.querySelector<HTMLElement>('.faq__answer');
+    if (!button || !answer || row.dataset.ready) return;
+    row.dataset.ready = 'true';
+    button.addEventListener('click', () => {
+      const open = row.dataset.open !== 'true';
+      row.dataset.open = String(open);
+      button.setAttribute('aria-expanded', String(open));
+      answer.hidden = !open;
+    });
+  });
+</script>
+
+<style>
+  .faq {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+    padding: 6px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--surface-1);
+  }
+  .faq__row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0 12px;
+    overflow: hidden;
+    border-radius: 16px;
+    background-color: var(--surface-2);
+    transition: background-color 0.1s cubic-bezier(0.44, 0, 0.56, 1);
+  }
+  .faq__row[data-open='false']:hover {
+    background-color: var(--surface-3);
+  }
+  .faq__row[data-open='true'] {
+    padding-bottom: 20px;
+  }
+
+  .faq__question {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 40px 16px 0;
+    text-align: left;
+    user-select: none;
+    cursor: pointer;
+  }
+  .faq__label {
+    flex: 1 0 0;
+    width: 1px;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--text-90);
+  }
+  .faq__plus {
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    opacity: 0.4;
+    transition:
+      transform 0.1s cubic-bezier(0.44, 0, 0.56, 1),
+      opacity 0.1s cubic-bezier(0.44, 0, 0.56, 1);
+  }
+  .faq__plus::before,
+  .faq__plus::after {
+    content: '';
+    position: absolute;
+    border-radius: 10px;
+    background: var(--white);
+  }
+  .faq__plus::before {
+    top: calc(50% - 0.5px);
+    left: calc(50% - 7px);
+    width: 14px;
+    height: 1px;
+  }
+  .faq__plus::after {
+    top: calc(50% - 7px);
+    left: calc(50% - 0.5px);
+    width: 1px;
+    height: 14px;
+  }
+  .faq__row[data-open='true'] .faq__plus {
+    opacity: 0.3;
+    transform: rotate(45deg);
+  }
+
+  .faq__answer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 0 20px 20px 0;
+  }
+  .faq__answer[hidden] {
+    display: none;
+  }
+  .faq__answer p {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--text-50);
+    white-space: pre-wrap;
+    user-select: none;
+  }
+</style>

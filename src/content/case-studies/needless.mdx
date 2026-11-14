@@ -1,0 +1,557 @@
+---
+title: "NeedLess - William Metcalfe | UX & Product Designer"
+description: "A secure community exchange app that allows people to give and receive food and essential services within their local area."
+---
+
+<Stack gap={24} align="start">
+
+  <Stack gap={24} align="start">
+
+    <Link href="/projects" label="Back" back />
+
+    <Stack gap={12} align="start" justify="center">
+
+      # NeedLess
+
+      <Chips team="NeedLess" time="2018, 2022" />
+
+    </Stack>
+
+  </Stack>
+
+  <Stack gap={24} align="start" justify="center" dir="row">
+
+    <Stack gap={6} align="start" justify="center" grow>
+
+      <Label>ROLE</Label>
+
+      <Eyebrow><Soft>UX DESIGNER.</Soft> OWNED WIREFRAMING, TESTING AND HI-FI DESIGN AS PART OF A TEAM OF UX DESIGNERS.</Eyebrow>
+
+    </Stack>
+
+    <Stack gap={6} align="center" justify="center" grow>
+
+      <Label>IMPACT</Label>
+
+      <Eyebrow>VALIDATED USABILITY, IDENTIFIED TRUST GAPS, AND INTRODUCED VERIFICATION AND ENGAGEMENT FEATURES TO <Soft>SUPPORT ADOPTION.</Soft></Eyebrow>
+
+    </Stack>
+
+  </Stack>
+
+  <Image src="ClrTgW2LIUfO5sn4Cj3ZZEUMJUE.png" ratio="1.45455/1" static />
+
+</Stack>
+
+<Stack gap={40} align="start">
+
+  <Stack gap={20} align="center" justify="center">
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>INTRODUCTION</Eyebrow>
+
+      The team at NeedLess approached us with a clear goal: turn an early-stage idea into a tangible digital experience that could support people facing food insecurity.
+
+    </Stack>
+
+    NeedLess is focused on addressing the homelessness and food access crisis in **Brantford**, where gaps between surplus food and people in need are both visible and persistent. Their concept centered on a simple but meaningful opportunity:
+
+    ## <Dim>Helping community members</Dim> donate leftover food to those who need it most.
+
+    At the outset, the team shared preliminary research that helped frame the scope of the problem.
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center">
+
+    <Stack gap={20} align="center" justify="center" dir={{ d: "row", t: "row", m: "column" }}>
+
+      <Card
+        image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+        badge="Statistic"
+        badgeColor="grey"
+        title="Canadians waste **873lbs of food per year** on average."
+        padding="36px 24px"
+        height={{ d: "100%", t: "100%", m: "min-content" }}
+        titleMaxWidth={400}
+        grow={{ d: true, t: true, m: false }}
+        stretch={{ d: true, t: true, m: false }}
+      />
+
+      <Card
+        image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+        badge="Statistic"
+        badgeColor="grey"
+        title="Food bank recipients in Brantford, ON travel **up to 3.5km to receive food.**"
+        padding="36px 24px"
+        height="min-content"
+        titleMaxWidth={400}
+        grow={{ d: true, t: true, m: false }}
+      />
+
+    </Stack>
+
+    <Card
+      image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+      badge="Statistic"
+      badgeColor="grey"
+      title="**61%** of Canadians report that they cannot afford **three meals a day.**"
+      padding="36px 24px"
+      height="100%"
+      titleMaxWidth={400}
+      stretch
+    />
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center">
+
+    ### <Dim>The data highlighted a stark contrast between food waste and food insecurity, as well as the</Dim> physical barriers people face when accessing support services.
+
+    These insights shaped our understanding of the challenge and set the foundation for designing a solution grounded in real community needs.
+
+    ## <Dim>How might we reduce friction between</Dim> excess food and people in need to create an immediate, local impact?
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={40} align="start">
+
+    <Stack gap={20} align="center" justify="center">
+
+      <Stack gap={10} align="center" justify="center">
+
+        <Eyebrow>USER RESEARCH</Eyebrow>
+
+        ### <Dim>To deepen our understanding of the end user,</Dim> we conducted user interviews to expand on the early insights provided by the NeedLess team.
+
+      </Stack>
+
+      The goal was to move beyond assumptions and understand how food insecurity shows up locally, day to day.
+
+    </Stack>
+
+    <Stack gap={24} align="center" justify="center">
+
+      <Image src="PDADTHytBueZBcKRqp31kpJjKs.jpg" ratio="1.45455/1" />
+
+      <Stack gap={10} align="center" justify="center">
+
+        <Eyebrow>LOCAL COMMUNITY MEMBERS</Eyebrow>
+
+        ### <Dim>We focused our research within the</Dim> <Dim>**Brantford**</Dim> <Dim>community,</Dim> speaking directly with organizations and individuals closest to the problem.
+
+        This included interviews with staff and volunteers at local food banks, soup kitchens, and churches, as well as conversations with people experiencing homelessness.
+
+      </Stack>
+
+    </Stack>
+
+    <Stack gap={24} align="center" justify="center">
+
+      <Image src="BmzyBgOul6VrdVPyeetYKoeYHNE.jpg" ratio="1.45455/1" />
+
+      <Stack gap={10} align="center" justify="center">
+
+        <Eyebrow>HOMELESS COMMUNITY MEMBERS</Eyebrow>
+
+        ### <Dim>Most importantly, we spent time with members of the homeless community themselves—</Dim>listening to how they navigate food access, technology, and daily decision-making.
+
+        These conversations helped us understand not just logistical barriers, but the context in which those barriers exist.
+
+      </Stack>
+
+      Two insights stood out early and challenged our initial assumptions:
+
+    </Stack>
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center" noClip>
+
+    <Card
+      image="RRIl93b1USw10IRQMuOFMRC5Ko.jpg"
+      badge="Insight"
+      badgeColor="grey"
+      title="77% of participants reported using a mobile phone as their primary means of accessing the internet"
+      text="The majority of individuals inside homeless community reported that they rely on mobile phones for internet access, challenging our assumption that desktop access would be more common."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={280}
+      textMaxWidth={400}
+    />
+
+    <Card
+      image="oavE8CGOdjoTa0ob8Wi6DkJEXDc.jpg"
+      badge="Insight"
+      badgeColor="grey"
+      title="Soup kitchens were seeing 200+ daily users"
+      text="Programs like **Soup for Soul** serve over 200 people daily, highlighting the scale and urgency of food access needs within the city."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={280}
+      textMaxWidth={400}
+    />
+
+  </Stack>
+
+  These findings reinforced the importance of designing a mobile-first, low-friction experience—one that meets people where they already are and reflects the realities of their daily lives.
+
+</Stack>
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={20} align="start">
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>COMPETITIVE ANALYSIS</Eyebrow>
+
+      ### <Dim>With a clearer understanding of the end user and the local context in Brantford,</Dim> we conducted a competitive analysis to establish a baseline for what was already working in the space.
+
+    </Stack>
+
+    We reviewed existing food-sharing platforms to understand common patterns, feature sets, and engagement models. While several apps addressed food waste directly, an unexpected trend emerged across many of them.
+
+  </Stack>
+
+  <Card
+    image="hznZSOwK4GEvzmc67nYiY4lmdI0.jpg"
+    badge="Competitor Research"
+    badgeColor="grey"
+    title="Many platforms also allowed users to share items like books, clothing, and furniture"
+    text="This shift reframed the problem in an important way. These products weren’t just focused on reducing food waste—they were designed to reduce waste overall."
+    padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+    height={400}
+    titleMaxWidth={280}
+    textMaxWidth={400}
+  />
+
+  <Stack gap={20} align="start">
+
+    This insight expanded our thinking in two key ways:
+
+    <Stack gap={0} noClip>
+
+      - It revealed a broader mindset around community sharing, not just food donation.
+      - It introduced a wider potential user base, including people motivated by sustainability and reuse, not solely food insecurity.
+
+    </Stack>
+
+    Understanding this pattern helped us position NeedLess more intentionally:
+
+    ## <Dim>Balancing immediate food access needs with a</Dim> larger ecosystem of community exchange.
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={20} align="start">
+
+  <Stack gap={10} align="center" justify="center">
+
+    <Eyebrow>IDENTIFYING STAKEHOLDERS</Eyebrow>
+
+    ### <Dim>Before jumping to solutions,</Dim> we developed a set of user personas to represent the end-user.
+
+  </Stack>
+
+  <Text width={564}>These personas helped us clearly articulate user needs, motivations, and decision-making patterns by grounding our work in how different users think, behave, and assess risk.</Text>
+
+  <Stack gap={20} align="center" justify="center">
+
+    <Card
+      image="mZH0mvWtkYvVe1FSGdJicx1XSVw.jpg"
+      badge="Stakeholder"
+      badgeColor="grey"
+      title="The Giver"
+      text="A community-minded individual who wants to contribute but carefully weighs safety, privacy, and time constraints. They are willing  to participate once trust is established and clear safeguards make giving feel predictable."
+      padding="36px 24px 36px 32px"
+      height={400}
+      titleMaxWidth={280}
+      textMaxWidth={400}
+    />
+
+    <Card
+      image="x0wPoV7iVFX8xwk0l0VRa1GR2k.jpg"
+      badge="Stakeholder"
+      badgeColor="grey"
+      title="The Vulnerable Survivor"
+      text="A person experiencing homelessness and food insecurity, focused on meeting immediate needs while staying safe. Limited access to technology, literacy challenges, and reliance on intermediaries shape how they interact with digital services."
+      padding="36px 24px 36px 32px"
+      height={400}
+      titleMaxWidth={280}
+      textMaxWidth={400}
+    />
+
+    <Card
+      image="Vaf4RNX0TgViuqS1RrmR8Hvu9w.jpg"
+      badge="Stakeholder"
+      badgeColor="grey"
+      title="The Quiet Striver"
+      text="A student balancing work, school, and financial instability who alternates between giving and receiving support. While digitally comfortable, concerns around stigma, data access, and privacy strongly influence how they engage."
+      padding="36px 24px 36px 32px"
+      height={400}
+      titleMaxWidth={280}
+      textMaxWidth={400}
+    />
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={20} align="start">
+
+  <Stack gap={10} align="center" justify="center">
+
+    <Eyebrow>DESIGN GOALS</Eyebrow>
+
+    With our user data clearly laid out and key market opportunities identified, we shifted focus to synthesizing our findings and defining a clear design direction. While existing exchange apps already address many functional user needs, our goal was not to reinvent these patterns.
+
+  </Stack>
+
+  <Card
+    image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+    title="Instead, we looked to build upon proven interaction models while identifying gaps where current solutions fell short of supporting broader, community-driven behavior."
+    padding="36px 24px 36px 32px"
+    height="min-content"
+  />
+
+  This led us to a central design goal:
+
+  ## <Dim>To create a total community exchange app—</Dim>a single platform where people could exchange anything and everything.
+
+  By removing category and use-case limitations, the product aims to reduce waste at a systemic level while making participation simple, flexible, and inclusive for a wide range of community members.
+
+</Stack>
+
+<Stack gap={20} align="center" justify="center">
+
+  <Stack gap={10} align="center" justify="center">
+
+    <Eyebrow>WIREFRAMING \& USER JOURNEY</Eyebrow>
+
+    With the design direction solidified, we moved into defining the structural foundation of the app.
+
+  </Stack>
+
+  <Stack gap={20} align="start">
+
+    ### <Dim>I began by mapping the end-to-end user journey,</Dim> outlining each step from a user’s first interaction with the app through to a successful exchange.
+
+    This allowed us to identify key moments of intent, decision-making, and potential drop-off early on, ensuring the experience remained focused and intuitive throughout.
+
+    <Image src="KdTkqMlGULlpIM2rdp6pqS7fgaM.png" ratio="3.22286/1" />
+
+    From there, I translated the journey into low-fidelity wireframes. These early explorations helped us visualize core flows, establish information hierarchy, and validate how users would move between key actions
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={20} align="center" justify="center">
+
+    <Stack gap={10} align="start">
+
+      <Eyebrow>USER TESTING</Eyebrow>
+
+      ### <Dim>Before moving into high-fidelity design,</Dim> we validated our early thinking by testing the user journey and wireframes through 10 in-person think-aloud sessions.
+
+    </Stack>
+
+    This approach allowed us to observe how participants interpreted the flow in real time and where uncertainty or friction surfaced naturally.
+
+    <Card
+      image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+      title="While we observed **100% task completion** across all sessions, participants consistently raised the same concern."
+      padding="36px 24px 36px 32px"
+      height="min-content"
+    />
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center">
+
+    <Card
+      image="k9udE2Ebu6LwaXQCGM9SpLRkIhc.jpg"
+      badge="Insight"
+      badgeColor="grey"
+      title="Vetting & Verification"
+      text="Many users questioned how they could trust the people on the other side of the exchange. They wanted reassurance that interactions would be **safe, secure, and legitimate**, and specifically asked for clearer vetting and validation mechanisms."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={280}
+      textMaxWidth={400}
+    />
+
+    <Card
+      image="xhR3uGAA65ckvLtsjuME1zuaM.jpg"
+      badge="Insight"
+      badgeColor="grey"
+      title="User Adoption & Retention"
+      text="While many participants expressed a genuine desire to help, they questioned what would motivate people to join initially—and more importantly, what would encourage them to return."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={280}
+      textMaxWidth={400}
+    />
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center">
+
+    Together, these insights highlighted a critical gap between usability and adoption.
+
+    ### <Dim>While participants were able to complete tasks successfully, they</Dim> needed stronger signals of trust to feel confident participating.
+
+    At the same time, users questioned what would motivate them to return over time, reinforcing that trust, visible impact, and meaningful feedback would need to be designed as core elements of the experience, not supporting features.
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={20} align="center" justify="center">
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>HIGH-FIDELITY DESIGN</Eyebrow>
+
+      ### <Dim>With usability validated and key insights identified, I moved into drafting high-fidelity mockups.</Dim> The goal at this stage was to translate what we learned from testing into a more complete, realistic experience
+
+    </Stack>
+
+    In parallel, we ran a focused research and brainstorming session to explore how the product could better support these needs. Rather than adding features for complexity’s sake, we prioritized solutions that reduced risk, increased confidence, and gave users a reason to return.
+
+    This process led us to three core features designed to resolve the most pressing concerns uncovered during user testing.
+
+  </Stack>
+
+  <Stack gap={24} align="center" justify="center">
+
+    <Image src="EHwkMATEWtcFUpHdpCaymtU60.png" ratio="1.67359/1" />
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>VETTING \& VERIFICATION SYSTEM</Eyebrow>
+
+      ### <Dim>To create a safe environment for giving and receiving,</Dim> we introduced a vetting and verification system at sign-up.
+
+      Users are required to verify their identity using either a verified Facebook account or a photo of a government-issued ID. This step helps establish legitimacy early, setting a clear baseline of trust across the platform.
+
+    </Stack>
+
+  </Stack>
+
+  <Stack gap={24} align="center" justify="center">
+
+    <Image src="TMyD1ZuMYkam0hbXfxRWOCcd0cY.png" ratio="1.67359/1" />
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>RATING SYSTEM</Eyebrow>
+
+      ### <Dim>To reinforce accountability over time,</Dim> we designed a two-way rating system that allows users to evaluate each interaction.
+
+      Ratings help surface trustworthy participants while identifying users who may violate community guidelines. This mechanism not only improves safety but also gives the platform a way to actively moderate behavior and protect the community.
+
+    </Stack>
+
+  </Stack>
+
+  <Stack gap={24} align="center" justify="center">
+
+    <Image src="asBqYCZV0eeFCfN7hn2PmGfeWFg.png" ratio="1.67359/1" />
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>GAMIFICATION \& ENGAGEMENT</Eyebrow>
+
+      Finally, we addressed the question of long-term participation. While requesting help may be straightforward, giving back requires motivation.
+
+      ### <Dim>To encourage continued contribution,</Dim> we introduced a weekly leaderboard where users earn points and badges for successful exchanges.
+
+      Top contributors are rewarded with small cash incentives and prizes, reinforcing positive behavior while making participation feel meaningful and rewarding.
+
+    </Stack>
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={20} align="start">
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>REFLECTION</Eyebrow>
+
+      Given more time, I would have liked to run an additional round of user testing to validate the trust and engagement features introduced in the high-fidelity designs.
+
+    </Stack>
+
+    ### <Dim>While these solutions were directly informed by earlier research, testing them with real users would have helped confirm whether they</Dim> effectively addressed concerns around safety, verification, and motivation.
+
+    I also would have explored stronger options for anonymous or low-visibility participation. Throughout the project, it became clear that stigma plays a significant role in how people seek food and services. Designing for greater discretion could further reduce barriers to entry and better support users who may need help but hesitate to ask for it openly.
+
+  </Stack>
+
+  <Stack gap={40} align="start">
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>REVISITING NEEDLESS</Eyebrow>
+
+      In 2022, I revisited NeedLess as a personal project with the goal of sharpening my design skills and re-evaluating earlier decisions through a more experienced lens. This gave me the opportunity to build on the original concept without the constraints of project timelines.
+
+    </Stack>
+
+    <Stack gap={24} align="center" justify="center">
+
+      <Image src="uXCCjp8z1Vr3AH1kw5Bzo72MLi4.png" ratio="2.09665/1" />
+
+      <Stack gap={10} align="center" justify="center">
+
+        <Eyebrow>ONBOARDING</Eyebrow>
+
+        ### <Dim>I expanded the vetting and verification feature into a</Dim> fully realized onboarding flow, focusing on clarity, reassurance, and transparency.
+
+        The updated process better communicates why verification is required and how user information is protected, helping establish trust from the first interaction.
+
+      </Stack>
+
+    </Stack>
+
+    <Stack gap={24} align="center" justify="center">
+
+      <Image src="hyknJn6ANvb4JcOS6JCey0ogOIc.png" ratio="1.51206/1" />
+
+      <Stack gap={10} align="center" justify="center">
+
+        <Eyebrow>ONBOARDING</Eyebrow>
+
+        ### <Dim>To reduce friction during handoffs, I introduced geo-tracking features that</Dim> allow users to locate one another more quickly and accurately.
+
+        This improvement aimed to make exchanges feel safer, more predictable, and easier to complete—especially in time-sensitive situations.
+
+      </Stack>
+
+    </Stack>
+
+    Revisiting the project reinforced how early research insights can continue to inform stronger solutions over time, and how revisiting past work can reveal new opportunities for improvement.
+
+  </Stack>
+
+</Stack>
+
+<Image src="cXdQTpfkr2pjpF7eyBymtHwfa8.png" ratio="1.45455/1" static />
+
+<Link href="/projects" label="View all projects" back icon="arrow-right-alt" />

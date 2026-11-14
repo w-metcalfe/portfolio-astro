@@ -1,0 +1,11 @@
+---
+// Small mono caps label above a section ("INTRODUCTION"). `soft` makes it brighter and medium weight.
+interface Props {
+  soft?: boolean;
+}
+const { soft = false } = Astro.props;
+---
+
+<p class:list={['cs-eyebrow', { 'cs-eyebrow--soft': soft, w500: soft }]}>
+  <slot />
+</p>

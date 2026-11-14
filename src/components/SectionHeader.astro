@@ -1,0 +1,39 @@
+---
+// Section title with an optional "view all" link on the right.
+import GhostLink from './GhostLink.astro';
+
+interface Props {
+  title: string;
+  linkLabel?: string;
+  linkHref?: string;
+}
+
+const { title, linkLabel, linkHref } = Astro.props;
+---
+
+<div class="section-header">
+  <p class="section-header__title">{title}</p>
+  {linkLabel && linkHref && <GhostLink href={linkHref} label={linkLabel} />}
+</div>
+
+<style>
+  .section-header {
+    position: relative;
+    display: flex;
+    flex: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+  }
+  .section-header__title {
+    position: relative;
+    z-index: 2;
+    flex: 1 0 0;
+    width: 1px;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    color: var(--text-60);
+  }
+</style>

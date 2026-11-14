@@ -1,0 +1,514 @@
+---
+title: "Green Pages - William Metcalfe | UX & Product Designer"
+description: "An award-winning browser extension that enables effortless collaboration and author verification to streamline online workflow."
+---
+
+<Stack gap={24} align="start">
+
+  <Stack gap={24} align="start">
+
+    <Link href="/projects" label="Back" back />
+
+    <Stack gap={12} align="start" justify="center">
+
+      <H1 maxWidth={300}>Green Pages</H1>
+
+      <Chips team="William & Mary University" time="2022-2023" />
+
+    </Stack>
+
+  </Stack>
+
+  <Stack gap={24} align="start" justify="center" dir="row">
+
+    <Stack gap={6} align="start" justify="center" grow>
+
+      <Label>ROLE</Label>
+
+      <Eyebrow><Soft>LEAD UX DESIGNER.</Soft> LED A TEAM OF DESIGNERS, OVERSEEING END-TO-END USER RESEARCH AND DESIGN.</Eyebrow>
+
+    </Stack>
+
+    <Stack gap={6} align="center" justify="center" grow>
+
+      <Label>IMPACT</Label>
+
+      <Eyebrow soft><Dim weight={400}>WINNER OF THE</Dim> 2023 SCOTIABANK CAPSTONE DESIGN AWARD <Dim weight={400}>(THIRD PLACE).</Dim></Eyebrow>
+
+    </Stack>
+
+  </Stack>
+
+  <Image src="ZfKBpBtezGVADPgmgkAnTNBKLw.png" ratio="1.45455/1" static />
+
+</Stack>
+
+<Stack gap={20} align="start">
+
+  <Stack gap={10} align="center" justify="center">
+
+    <Eyebrow>INTRODUCTION</Eyebrow>
+
+    William \& Mary approached our team with several challenges around information management within the Institute for Integrative Conservation. Their work spans interdisciplinary fields and relies on contributions from scientists, practitioners, partners, and students. Despite the richness of this network, their workflows often felt fragmented. Across early conversations with their team, one theme kept coming up:
+
+  </Stack>
+
+  ## <Dim>The sheer volume of conservation data made it hard to</Dim> distill, connect, and share information without overwhelming users.
+
+  Important details lived in different systems, formats, and personal networks. As a result, even simple tasks—like finding the right resource or identifying the author of a relevant project—took more time and effort than expected.
+
+</Stack>
+
+<Image src="zD0lbttCh8TTf3AioJrNagxo.jpg" ratio="1.45455/1" />
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={20} align="start">
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>COMPETITIVE ANALYSIS</Eyebrow>
+
+      To understand the landscape we were designing within, we began with a competitive analysis focused on tools commonly used in conservation and adjacent knowledge domains. Our goal was to see how existing platforms organize information, support learning, and encourage ongoing engagement. We also wanted to identify patterns that could inform how our solution might bridge current gaps.
+
+    </Stack>
+
+    ### <Dim>We evaluated each tool on</Dim> clarity of information, ease of navigation, content credibility, and opportunities for user interaction.
+
+    I led synthesis of the findings, identifying two distinct competitive categories that informed our positioning:
+
+  </Stack>
+
+  <Stack gap={24} align="center" justify="center" noClip>
+
+    <Card
+      image="REd1UieoqScBcdb9fgwiabOliqo.jpg"
+      badge="Competitors"
+      badgeColor="grey"
+      title="Knowledge Tools"
+      text="These platforms serve as scientifically grounded repositories. They offer reliable, well-documented information and are strong resources for learning. However, many presented large volumes of content without helping users quickly extract what’s most relevant, which can increase cognitive load."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={280}
+      textMaxWidth={{ d: 400, t: 400 }}
+    />
+
+    <Card
+      image="UDVuUnr8W9mlwvfnKaI2S8Mf5QE.jpg"
+      badge="Competitors"
+      badgeColor="grey"
+      title="Engaging Content Platforms"
+      text="These sites and applications focus on interactive, visually engaging content that keeps users returning. While they succeed at drawing users in, they often lack the depth or verification needed for evidence-based fieldwork."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={280}
+      textMaxWidth={400}
+    />
+
+    This analysis highlighted a gap: conservation professionals need *both* credibility and usability. Tools must present accurate information while supporting fast, intuitive exploration—without overwhelming the user. This gap guided the direction of our early concepts.
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={20} align="start">
+
+  <Stack gap={10} align="center" justify="center">
+
+    <Eyebrow>USER RESEARCH</Eyebrow>
+
+    ### <Dim>To ground the project in real conservation workflows,</Dim> we conducted 10+ of moderated interviews with experts across the industry.
+
+    Our participants represented a wide range of domains—grasslands, bird conservation, oyster restoration, and additional ecological specialties—with experience levels spanning 10 to 40 years. We also spoke with environmental students to capture emerging perspectives and understand how early-career conservationists navigate information.
+
+  </Stack>
+
+  <Image src="YSEu0VSjqoS9KjJgwTa6kpBCZnk.png" ratio="1.85526/1" />
+
+  ### <Dim>Across these conversations, we mapped out their</Dim> goals, actions, and day-to-day challenges using job-to-be-done exercises and a journey map.
+
+  This helped us see how information supports each stage of their work, from early research to collaborating with other groups.
+
+  <Image src="ZhN6s7QnKhYY55JEZCuoYomjDk.png" ratio="1.45455/1" />
+
+  <Image src="DnRyapH8xlgIiPr7Wb8YLntzs.png" ratio="1.26457/1" />
+
+</Stack>
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={10} align="start">
+
+    <Eyebrow>KEY PAIN POINTS</Eyebrow>
+
+    After completing the first round of  user interviews, I synthesized the data to look for recurring patterns and themes. Two primary pain points emerged and were mentioned consistently across multiple participants, signaling shared usability challenges.
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center" noClip>
+
+    <Card
+      image="4IRpTMD6lKdLfkPkfApIHVibcMc.jpg"
+      badge="Pain Point"
+      badgeColor="grey"
+      title="Limited Access to Reliable Information"
+      text="Many conservationists struggled to access up-to-date resources. Critical documents were often behind firewalls or university logins they no longer had access to. Others faced the opposite challenge: no internet access at all when working in remote locations. Both scenarios forced them to rely on fragmented workarounds, making research slower and less dependable."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={400}
+      textMaxWidth={400}
+    />
+
+    <Card
+      image="alleTlZUeWMq4iz2ePiom3g8GY.jpg"
+      badge="Pain Point"
+      badgeColor="grey"
+      title={"Heavy Reliance on Informal\nKnowledge Sharing"}
+      text="Participants consistently emphasized how much they rely on colleagues, partners, and broader networks to fill information gaps. While these relationships are valuable, there is no centralized or easy-to-use platform for sharing lessons learned, past project outcomes, or relevant contacts. This makes it difficult to avoid repeating past mistakes, identify overlapping work, or connect with the right people at the right time."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={400}
+      textMaxWidth={400}
+    />
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={20} align="start">
+
+  <Eyebrow>OPPORTUNITIES</Eyebrow>
+
+  ### <Dim>Conservationists need a more unified and accessible way to find</Dim> trustworthy information and connect with others doing similar work.
+
+  A tool that strengthens collaboration, reduces repeated effort, and surfaces credible contacts could significantly reduce friction across their workflow.
+
+</Stack>
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={10} align="start">
+
+    <Eyebrow>STAKEHOLDERS</Eyebrow>
+
+    Synthesizing our interview findings, I identified two primary stakeholder groups whose needs shaped the direction of the solution.
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center" noClip>
+
+    <Card
+      image="97gL2MPRcydJOP7DeqyR3H9b8Q.jpg"
+      badge="Stakeholder"
+      badgeColor="grey"
+      title="The Contributor"
+      text="Contributors are individuals who generate knowledge—scientists, academics, field experts, and other passionate practitioners. They often hold deep, tacit information that’s valuable to the broader community, but they need clear incentives and accessible platforms to share their insights. Without the right structures in place, their contributions remain siloed in personal networks, reports, or hard-to-find resources."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={400}
+      textMaxWidth={400}
+    />
+
+    <Card
+      image="1O9BSL2VXMrp3qjXybAeI76y7aI.jpg"
+      badge="Stakeholder"
+      badgeColor="grey"
+      title="The Worker"
+      text="Workers rely on this information to complete tasks in structured environments such as government agencies, zoos, classrooms, laboratories, forests, and marine sites. Their workflows are often time-sensitive and split between office and field settings, making quick access to credible, relevant information essential. When information is buried behind logins or spread across multiple systems, their efficiency drops and decision-making becomes harder."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={400}
+      textMaxWidth={400}
+    />
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={20} align="start">
+
+  <Stack gap={10} align="center" justify="center">
+
+    <Eyebrow>SHARED NEEDS</Eyebrow>
+
+    ### <Dim>They need tools that</Dim> strengthen collaboration, reduce duplicated work, and bridge the gap between knowledge and action.
+
+  </Stack>
+
+  <Text width={564}>Despite their different roles, both groups depend on seamless access to trustworthy information and reliable contacts.</Text>
+
+</Stack>
+
+<Stack gap={20} align="start">
+
+  <Eyebrow>DESIGN GOALS</Eyebrow>
+
+  <Card
+    image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+    title="The goal was to create a tool that helps conservationists easily connect with others working on similar projects, access trustworthy information, and work more efficiently. "
+    padding="36px 24px 36px 32px"
+    height="min-content"
+  />
+
+  The platform needed to support collaboration and knowledge sharing, offer clear verification of authors and sources, and present information in a way that is intuitive, lightweight, and faster than current methods. Above all, it needed to reduce friction in the research process rather than add to it.
+
+</Stack>
+
+<Stack gap={40} align="start">
+
+  <Stack gap={10} align="center" justify="center">
+
+    <Eyebrow>WIREFRAMING</Eyebrow>
+
+    We began our design process with low-fidelity wireframes that explored a central idea: a “conservationist’s collection.”
+
+    ## <Dim>This concept imagined a shared website where users could</Dim> browse research, learn from others’ projects, and connect directly with authors or practitioners.
+
+    Our early goal was to bridge the gap between contributors—those generating knowledge—and workers who rely on that knowledge in the field.
+
+  </Stack>
+
+  <Stack gap={24} align="center" justify="center">
+
+    <Image src="Ixkgb8eotX6PdzPk54CgmSbH3I.png" ratio="1.45455/1" />
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>SEARCH EXPERIENCE</Eyebrow>
+
+      ### <Dim>To support this, we designed a search experience that allowed users to</Dim> look up a specific topic or conservation field and immediately see related projects, research papers, and discussions.
+
+      Each project page surfaced key information such as the lead author, the research used or created, and relevant contact details. We wanted this environment to feel open, organized, and collaborative, giving users a way to trace how ideas and findings connect across the community.
+
+    </Stack>
+
+  </Stack>
+
+  <Stack gap={24} align="center" justify="center">
+
+    <Image src="9UR2DrhsgW6xp9JCdhYuvMFh6U.png" ratio="1.45455/1" />
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>STRUCTURE VS USABILITY</Eyebrow>
+
+      These early wireframes helped us visualize how information could be centralized in one place and how users might navigate between topics, authors, and resources.
+
+      ### <Dim>While the concept showed promise, our first round of testing later revealed opportunities to streamline this experience even further—</Dim>insights that ultimately led to our pivot toward a more lightweight solution.
+
+    </Stack>
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={20} align="center" justify="center">
+
+  <Stack gap={10} align="start">
+
+    <Eyebrow>USER TESTING</Eyebrow>
+
+    ### <Dim>To validate our early concept,</Dim> we conducted a series of think-aloud usability tests.
+
+    Participants were given realistic scenarios and asked to navigate the platform while sharing their thought process. We measured both task completion and confidence levels, and the results were remarkably high.
+
+  </Stack>
+
+  <Stack gap={10} align="center" justify="center" dir="row">
+
+    <Card
+      image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+      badge="User Test #1"
+      badgeColor="grey"
+      title="100% completion"
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height="min-content"
+      titleMaxWidth={400}
+      grow
+    />
+
+    <Card
+      image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+      badge="User Test #2"
+      badgeColor="grey"
+      title="100% confidence"
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height="min-content"
+      titleMaxWidth={400}
+      grow
+    />
+
+  </Stack>
+
+  ### <Dim>Participants moved through the interface</Dim> smoothly and felt assured in their actions.
+
+  However, our post-test interviews revealed a more nuanced picture: Conservationists needed support not only in accessing what they already knew to look for, but also in uncovering new collaborators, insights, and connections that weren’t yet visible to them.
+
+  <Card
+    image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+    title="While the tool was easy to use and genuinely helpful for navigating known information, it did not address the deeper challenge surfaced in our research: the difficulty of discovering *unknown* information."
+    padding="36px 24px 36px 32px"
+    height="min-content"
+  />
+
+  Conservationists needed support not only in accessing what they already knew to look for, but also in uncovering new collaborators, insights, and connections that weren’t yet visible to them.
+
+  ## <Dim>This insight was critical. It showed us that our initial platform, while functional,</Dim> wasn’t solving the core problem.
+
+  As a result, I led a pivot away from a centralized search model and toward a solution that surfaces meaningful connections in real time—reducing the need for users to actively search for information.
+
+</Stack>
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={20} align="start">
+
+    <Stack gap={10} align="center" justify="center">
+
+      <Eyebrow>THE PIVOT</Eyebrow>
+
+      With our testing insights in mind, we shifted our focus toward enabling real-time information discovery. We revisited our interview data and asked a key question:
+
+    </Stack>
+
+    <Card
+      image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+      title="How might we design an experience that could surface the information users need before they even know to look for it?"
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height="min-content"
+    />
+
+    This reframing pushed us away from a static, searchable platform and toward something more integrated into a conservationist’s existing workflow.
+
+    During our interviews, we noticed that many conservationists already relied on browser extensions, such as Grammarly, to support their daily tasks. This insight opened a new direction.
+
+    ### <Dim>Instead of asking users to visit a separate website, we began exploring the idea of a</Dim> lightweight browser extension that could automatically pull related research, reports, and author details while they read or write online.
+
+    <Stack gap={20} align="center" justify="center">
+
+      <Image src="VIYS1kCZSjuMVRdQs9g8DoSKSI.png" height={285} />
+
+      <Image src="7zcjrYAB2IbaiM629yel6wTFMk.png" ratio="1.45455/1" />
+
+    </Stack>
+
+    We translated this direction into a new set of wireframes for an interactive browser extension. In this model, the extension would read the user’s report and instantly search its database for related research, surfacing connections in real time.
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center">
+
+    <Image src="lcQZ4JfiZyXXfkoLImUVM7fDOQY.png" ratio="1.45455/1" />
+
+    ### <Dim>As the user worked, the extension highlights sections of their report where relevant publications or authors are identified.</Dim> From there, users could open related work, verify authors, and reach out directly—making it easier to collaborate and integrate new insights without disrupting their workflow.
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={20} align="center" justify="center">
+
+  <Stack gap={10} align="center" justify="center">
+
+    <Eyebrow>DESIGN GOALS</Eyebrow>
+
+    The design goals for this pivot were straightforward:
+
+    - Provide clear author verification
+    - Support effortless collaboration
+    - Streamline online research without adding extra steps
+
+  </Stack>
+
+  ### <Dim>Most importantly, it needed to</Dim> promote communication between contributors and workers by surfacing both known and previously unknown information in real time.
+
+</Stack>
+
+<Stack gap={40} align="center" justify="center">
+
+  <Stack gap={10} align="start">
+
+    <Eyebrow>VALIDATING THE NEW DIRECTION</Eyebrow>
+
+    To validate the new browser extension concept, we ran a second round of think-aloud usability sessions. Participants were given two tasks modeled after real conservation workflows, and we measured both task completion and confidence levels.
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center">
+
+    <Card
+      image="KnHZX9XCgz6kZnlUTSY2Be59Lo.jpg"
+      badge="Task 1"
+      badgeColor="grey"
+      title="Find a related research paper to the report you are working on."
+      text="This task had a **100% completion rate**, and participants reported **high confidence** in their ability to complete it. The inline surfacing of related research aligned closely with their expectations and felt intuitive within their workflow."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={400}
+      textMaxWidth={400}
+    />
+
+    <Card
+      image="NMJoTU0ek0G6L9YB1bhIJI9STaY.jpg"
+      badge="Task 2"
+      badgeColor="grey"
+      title="Check whether the author of the related report is verified."
+      text="This task had a **40% completion rate**, indicating significant findability issues. Although confidence levels remained moderate, many participants did not realize the verification percentage was interactive. In post-test interviews, they noted that the element didn’t look clickable and didn’t match their mental model of how verification should be presented."
+      padding={{ d: "36px 24px 36px 32px", t: "36px 24px 36px 32px", m: "36px 24px" }}
+      height={400}
+      titleMaxWidth={400}
+      textMaxWidth={400}
+    />
+
+  </Stack>
+
+  <Stack gap={20} align="center" justify="center">
+
+    These insights highlighted a clear usability gap:
+
+    <Card
+      image="2GPFkzU7J9TSmx5eK6KusjaBHI.jpg"
+      title="While the extension successfully delivered relevant information in real time, the author verification feature needed clearer affordances to ensure users could trust and act on the information provided."
+      padding="36px 24px 36px 32px"
+      height="min-content"
+    />
+
+  </Stack>
+
+</Stack>
+
+<Stack gap={20} align="start">
+
+  <Stack gap={10} align="center" justify="center">
+
+    <Eyebrow>HIGH-FIDELITY DESIGN \& FURTHER USER TESTING</Eyebrow>
+
+    ### <Dim>With our core solution validated,</Dim> we moved into refining the design through iterative improvements.
+
+    We incorporated the insights from our pivot testing—especially around verification clarity—and developed high-fidelity mockups that reflected a more polished and intuitive experience.
+
+  </Stack>
+
+  <Image src="NAw3OEVt3Sdf6VKIXpIbdB4C6YU.png" ratio="1.45455/1" />
+
+  ## <Dim>I then refined the UI and completed a final user testing session,</Dim> which returned 100% task completion and confidence levels across all participants.
+
+  These results confirmed that the refinements successfully resolved earlier usability issues and validated the strength of the updated design.
+
+</Stack>
+
+<Stack gap={10} align="start">
+
+  <Eyebrow>REFLECTION \& NEXT STEPS</Eyebrow>
+
+  In hindsight, I would have liked to explore the role of AI more deeply.
+
+  ### <Dim>Thoughtful integration, such as summarizing findings, highlighting consensus across sources, or suggesting next steps, could further</Dim> bridge the gap between knowledge and action, helping users move from insight to impact more efficiently.
+
+  Looking ahead, I see opportunities to expand Green Pages beyond the conservation space. The ability to surface related research, verify authors, and enable direct collaboration is valuable across many research-driven fields. With further development and testing, the extension could support a broader community of practitioners who rely on fast, credible information to inform their work.
+
+</Stack>
+
+<Image src="ZfKBpBtezGVADPgmgkAnTNBKLw.png" ratio="1.45455/1" static />
+
+<Link href="/projects" label="View all projects" back icon="arrow-right-alt" />

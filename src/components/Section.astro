@@ -1,0 +1,153 @@
+---
+// Page section: a full-width band with a top rule, holding the 800px content column
+// with dashed side rules (desktop) or a dashed top rule (tablet / mobile).
+interface Props {
+  /** Top / bottom padding of the content column in px */
+  pt?: number;
+  pb?: number;
+  /** Bottom padding on tablet + mobile when it differs */
+  pbCompact?: number;
+  /** Gap between direct children in px */
+  gap?: number;
+  /** Faint dotted background fading in towards the edges */
+  dots?: boolean;
+  /** No 40px side gutter on the outer band (desktop) */
+  flush?: boolean;
+  /** Dashed rule along the bottom of the content column (desktop) */
+  bottomRule?: boolean;
+  /** Hide the solid rule along the top of the band */
+  noTopRule?: boolean;
+  /** Where the dashed rule of the column sits on tablet + mobile: "top" (default), "bottom",
+      or "bottom-tablet" (bottom on tablet, top on mobile). */
+  compactRule?: 'top' | 'bottom' | 'bottom-tablet';
+  class?: string;
+  id?: string;
+  [key: string]: unknown;
+}
+
+const {
+  pt = 72,
+  pb = 80,
+  pbCompact,
+  gap = 32,
+  dots = false,
+  flush = false,
+  bottomRule = false,
+  noTopRule = false,
+  compactRule = 'top',
+  class: className,
+  id,
+  ...rest
+} = Astro.props;
+const style = `--pt:${pt}px;--pb:${pb}px;--pb-compact:${pbCompact ?? pb}px;--gap:${gap}px`;
+---
+
+<section
+  class:list={[
+    'section',
+    { 'section--flush': flush, 'section--bottom-rule': bottomRule, 'section--no-top-rule': noTopRule },
+    compactRule !== 'top' && `section--rule-${compactRule}`,
+    className,
+  ]}
+  id={id}
+  {...rest}
+>
+  <div class="section__inner" style={style}>
+    <slot />
+    {dots && <div class="section__dots" aria-hidden="true" />}
+  </div>
+</section>
+
+<style>
+  .section {
+    position: relative;
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 0 40px;
+  }
+  .section--flush {
+    padding: 0;
+  }
+  .section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-top: 1px solid var(--border);
+    pointer-events: none;
+  }
+
+  .section__inner {
+    position: relative;
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap);
+    width: 100%;
+    max-width: var(--content-width);
+    padding: var(--pt) 48px var(--pb);
+  }
+  .section__inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 0 dashed var(--border);
+    border-width: 0 1px;
+    pointer-events: none;
+  }
+
+  .section--no-top-rule::after {
+    display: none;
+  }
+  .section--bottom-rule .section__inner::after {
+    border-width: 0 1px 1px;
+  }
+
+  .section__dots {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    opacity: 0.05;
+    filter: invert(1);
+    background: url('/textures/dots.svg') 0 0 / 31px auto repeat;
+    -webkit-mask-image: radial-gradient(78% 88% at 50% 50%, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+    mask-image: radial-gradient(78% 88% at 50% 50%, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+    pointer-events: none;
+  }
+
+  @media (max-width: 999.98px) {
+    .section {
+      padding: 0;
+    }
+    .section__inner {
+      max-width: none;
+      padding: var(--pt) 40px var(--pb-compact);
+    }
+    .section__inner::after {
+      border-width: 1px 0 0;
+    }
+  }
+
+  @media (max-width: 809.98px) {
+    .section__inner {
+      max-width: var(--content-width);
+      padding: var(--pt) 20px var(--pb-compact);
+    }
+  }
+
+  @media (max-width: 999.98px) {
+    .section--rule-bottom .section__inner::after {
+      border-width: 0 0 1px;
+    }
+  }
+  @media (min-width: 810px) and (max-width: 999.98px) {
+    .section--rule-bottom-tablet .section__inner::after {
+      border-width: 0 0 1px;
+    }
+  }
+</style>

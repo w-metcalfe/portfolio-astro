@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import MessagePanel from '../components/MessagePanel.astro';
+import HeroButton from '../components/HeroButton.astro';
+---
+
+<Base title="Thanks For Reaching Out ♥️" noindex>
+  <MessagePanel
+    titleTag="h1"
+    title="Thanks for reaching out."
+    text="I’ve received your message and appreciate you taking the time to get in touch. I’ll review it and follow up as soon as possible."
+    textWidth={495}
+    fullHeight
+  >
+    <HeroButton href="/projects" label="See my work" />
+  </MessagePanel>
+</Base>

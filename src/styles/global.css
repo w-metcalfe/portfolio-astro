@@ -1,0 +1,249 @@
+/* ---------- Fonts ---------- */
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Display';
+  src: url('/fonts/inter-display-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Display';
+  src: url('/fonts/inter-display-500-italic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Display';
+  src: url('/fonts/inter-display-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Reenie Beanie';
+  src: url('/fonts/reenie-beanie-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DM Mono';
+  src: url('/fonts/dm-mono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DM Mono';
+  src: url('/fonts/dm-mono-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #141414;
+  --surface-1: #1a1a1a;
+  --surface-2: #1f1f1f;
+  --surface-3: #2b2b2b;
+  --overlay: rgba(0, 0, 0, 0.5);
+
+  --white: #fff;
+  --text-90: rgba(255, 255, 255, 0.9);
+  --text-80: rgba(255, 255, 255, 0.8);
+  --text-70: rgba(255, 255, 255, 0.7);
+  --text-60: rgba(255, 255, 255, 0.6);
+  --text-50: rgba(255, 255, 255, 0.5);
+  --text-40: rgba(255, 255, 255, 0.4);
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-dark: rgba(0, 0, 0, 0.08);
+
+  --font-sans: 'Manrope', sans-serif;
+  --font-display: 'Inter Display', 'Inter', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-hand: 'Reenie Beanie', cursive;
+
+  --sidebar-width: 260px;
+  --content-width: 800px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+ul,
+ol,
+li {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+/* Keyboard focus ring (WCAG 2.4.7). :focus-visible keeps it off mouse clicks on buttons and links;
+   components with their own focus treatment (e.g. the contact form fields) override it. */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid #09f;
+  outline-offset: 2px;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ---------- Helpers ---------- */
+
+/* Overlay border that does not take part in layout (matches the original build,
+   which draws borders on a pseudo-element). Configure with --bw / --bs / --bc. */
+.bordered {
+  position: relative;
+}
+.bordered::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border-width: var(--bw, 1px);
+  border-style: var(--bs, solid);
+  border-color: var(--bc, var(--border));
+  pointer-events: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Page transition ----------
+   Navigating between pages cross-fades: the new page fades in over the old one (0.2s), as on the original site.
+   Uses native cross-document view transitions; browsers without support simply navigate. */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: page-enter 0.2s cubic-bezier(0.27, 0, 0.51, 1) both;
+  mix-blend-mode: normal;
+}
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+}

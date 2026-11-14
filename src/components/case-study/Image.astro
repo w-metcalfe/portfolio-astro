@@ -1,0 +1,32 @@
+---
+// Case-study image: rounded, click to zoom (lightbox), fades in on scroll unless `static`.
+// Size it with `ratio` ("3/2"), a fixed `height`, or `grow` to share a row.
+import Img from '../Img.astro';
+import { at, vars, type ResponsiveValue } from './responsive';
+
+interface Props {
+  /** File name in src/assets/images */
+  src: string;
+  /** Aspect ratio, e.g. "1.45455/1" */
+  ratio?: ResponsiveValue<string>;
+  height?: ResponsiveValue<number | string>;
+  width?: ResponsiveValue<number | string>;
+  grow?: ResponsiveValue<boolean>;
+  fit?: 'cover' | 'contain' | 'fill';
+  /** Shown immediately (no scroll fade) and loaded eagerly: for the cover and images above the fold */
+  static?: boolean;
+  alt?: string;
+}
+
+const { src, ratio, height, width, grow, fit = 'cover', static: isStatic = false, alt } = Astro.props;
+const growDesktop = Boolean(at(grow, 'd'));
+---
+
+<figure
+  class:list={['cs-image', { 'cs-grow': growDesktop, 'cs-grow-mobile-off': growDesktop && !at(grow, 'm'), 'cs-image--ratio': Boolean(ratio) }]}
+  style={[...vars('ratio', ratio, (v) => String(v).replace('/', ' / ')), ...vars('h', height), ...vars('w', width)].join(';')}
+  data-appear={isStatic ? undefined : 'in-view'}
+  data-lightbox
+>
+  <Img src={src} alt={alt} fit={fit} loading={isStatic ? 'eager' : 'lazy'} widths={[512, 1024, 1600, 2400]} />
+</figure>

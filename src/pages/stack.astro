@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import PageHeader from '../components/PageHeader.astro';
+import BookmarkCard from '../components/BookmarkCard.astro';
+import MessagePanel from '../components/MessagePanel.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { toolGroups } from '../data/stack';
+---
+
+<Base title="Stack - William Metcalfe | UX & Product Designer" active="stack">
+  <Section bottomRule compactRule="bottom-tablet" pb={72} gap={48}>
+    <PageHeader title="My stack" text="The tools and technologies that power my work, every step of the way." />
+    {toolGroups.map((group, i) => (
+      <div class="tools">
+        <p class="tools__title">{group.title}</p>
+        <div class:list={['tools__grid', { 'tools__grid--first': i === 0 }]}>
+          {group.items.map((tool) => (
+            <div class="tools__cell">
+              <BookmarkCard variant="small" {...tool} />
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </Section>
+
+  <MessagePanel
+    emoji="📮"
+    title="Stay connected"
+    text="From time to time, I share updates about new work and the ideas shaping my design story. If you’d like to stay connected, you’re welcome to subscribe."
+  >
+    <NewsletterForm />
+  </MessagePanel>
+</Base>
+
+<style>
+  .tools {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+  }
+  .tools__title {
+    width: 322px;
+    max-width: 100%;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    color: var(--text-60);
+  }
+  .tools__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(50px, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+  }
+  .tools__cell {
+    place-self: start;
+    width: 100%;
+  }
+
+  @media (max-width: 999.98px) {
+    .tools__grid--first {
+      gap: 16px;
+    }
+  }
+  @media (max-width: 809.98px) {
+    .tools__grid {
+      grid-template-columns: repeat(1, minmax(50px, 1fr));
+    }
+  }
+</style>

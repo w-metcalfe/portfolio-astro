@@ -1,0 +1,15 @@
+---
+// Body paragraph. Plain markdown paragraphs render as this automatically; use <Text width={564}> only for a fixed width.
+import { vars, type ResponsiveValue } from './responsive';
+
+interface Props {
+  width?: ResponsiveValue<number>;
+  maxWidth?: ResponsiveValue<number>;
+}
+const { width, maxWidth } = Astro.props;
+const sized = [...vars('max-w', maxWidth), ...vars('w', width)];
+---
+
+<p class:list={['cs-text', { 'cs-sized': sized.length > 0 }]} style={sized.join(';') || undefined}>
+  <slot />
+</p>

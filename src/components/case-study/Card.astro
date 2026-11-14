@@ -1,0 +1,76 @@
+---
+// Image card with badge, title and text (FeatureCard) inside a case study.
+// `title` and `text` accept **bold**, *italic* and line breaks.
+import FeatureCard from '../FeatureCard.astro';
+import type { BadgeColor } from '../../data/projects';
+import { at, inlineMarkdown, type ResponsiveValue } from './responsive';
+
+interface Props {
+  /** File name in src/assets/images; { d, t, m } swaps the image per breakpoint */
+  image: ResponsiveValue<string>;
+  badge?: string;
+  badgeColor?: BadgeColor;
+  year?: string;
+  title?: string;
+  text?: string;
+  padding?: ResponsiveValue<string>;
+  height?: ResponsiveValue<number | string>;
+  titleMaxWidth?: ResponsiveValue<number>;
+  textMaxWidth?: ResponsiveValue<number>;
+  /** Share the row with siblings */
+  grow?: ResponsiveValue<boolean>;
+  /** Fill the row height */
+  fill?: ResponsiveValue<boolean>;
+  stretch?: ResponsiveValue<boolean>;
+  /** Shown immediately instead of fading in on scroll */
+  static?: boolean;
+}
+
+const {
+  image,
+  badge,
+  badgeColor,
+  year,
+  title,
+  text,
+  padding,
+  height,
+  titleMaxWidth,
+  textMaxWidth,
+  grow,
+  fill,
+  stretch,
+  static: isStatic = false,
+} = Astro.props;
+const growDesktop = Boolean(at(grow, 'd'));
+const fillDesktop = Boolean(at(fill, 'd'));
+const className = [
+  'cs-card',
+  growDesktop && 'cs-grow',
+  growDesktop && !at(grow, 'm') && 'cs-grow-mobile-off',
+  fillDesktop && 'cs-card--fill',
+  fillDesktop && !at(fill, 'm') && 'cs-card--fill-mobile-off',
+  at(stretch, 'd') && 'cs-card--stretch',
+]
+  .filter(Boolean)
+  .join(' ');
+const desktopImage = at(image, 'd') as string;
+const mobileImage = at(image, 'm');
+---
+
+<FeatureCard
+  class={className}
+  image={desktopImage}
+  imageMobile={mobileImage && mobileImage !== desktopImage ? mobileImage : undefined}
+  badge={badge}
+  badgeColor={badgeColor}
+  year={year}
+  title={inlineMarkdown(title)}
+  text={inlineMarkdown(text)}
+  padding={padding as any}
+  height={height as any}
+  titleMaxWidth={titleMaxWidth as any}
+  textMaxWidth={textMaxWidth as any}
+  sizes={growDesktop ? '(min-width: 1000px) 342px, 100vw' : '(min-width: 1000px) 704px, 100vw'}
+  data-appear={isStatic ? undefined : 'in-view'}
+/>

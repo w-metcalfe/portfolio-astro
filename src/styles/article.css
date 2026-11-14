@@ -1,0 +1,233 @@
+/* Long-form case-study content (rendered by components/case-study/Block.astro). */
+
+/* ---------- Stacks ---------- */
+.cs-group {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gap, 0px);
+  width: 100%;
+  height: var(--h, auto);
+  padding: var(--pad, 0);
+}
+.cs-row {
+  flex-direction: row;
+}
+.cs-clip {
+  overflow: hidden;
+}
+.cs-align-start {
+  align-items: flex-start;
+}
+.cs-align-center {
+  align-items: center;
+}
+.cs-justify-center {
+  justify-content: center;
+}
+.cs-grow {
+  flex: 1 0 0;
+  width: 1px;
+}
+
+/* ---------- Text ---------- */
+.cs-eyebrow,
+.cs-meta-label {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text-40);
+}
+.cs-eyebrow {
+  font-weight: 400;
+  font-size: 13px;
+}
+.cs-eyebrow--soft {
+  color: var(--text-70);
+}
+.cs-meta-label {
+  font-weight: 500;
+  font-size: 12px;
+}
+.cs-text {
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+  color: var(--text-80);
+}
+.cs-text strong {
+  font-weight: 700;
+}
+.cs-h2 {
+  width: 100%;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  color: var(--white);
+}
+.cs-h3 {
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+.cs-h2 strong,
+.cs-h3 strong {
+  font-weight: 700;
+}
+.cs-dim {
+  color: var(--text-40);
+}
+/* Text with an explicit width, capped at the width of its column so it wraps on narrow screens. */
+.cs-sized {
+  flex: none;
+  width: var(--w, 100%);
+  max-width: min(100%, var(--max-w, 100%));
+}
+.cs-list {
+  position: relative;
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+  color: var(--text-80);
+}
+.cs-list li {
+  padding-inline-start: 2ch;
+}
+.cs-list li::before {
+  content: '•';
+  position: absolute;
+  inset-inline-start: 0;
+}
+
+/* ---------- Blocks ---------- */
+.cs-chips {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  overflow: hidden;
+}
+.cs-image {
+  position: relative;
+  flex: none;
+  width: var(--w, 100%);
+  height: var(--h, auto);
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: zoom-in;
+}
+.cs-image--ratio {
+  aspect-ratio: var(--ratio);
+}
+.cs-image.cs-grow {
+  flex: 1 0 0;
+  width: 1px;
+}
+.cs-group > .cs-card.cs-grow {
+  flex: 1 0 0;
+  width: 1px;
+}
+.cs-group > .cs-card--fill {
+  height: 100%;
+}
+.cs-group > .cs-card--stretch {
+  align-self: stretch;
+}
+.cs-image,
+.cs-card {
+  --appear-y: 15px;
+  --appear-ease: var(--spring-247-25);
+  --appear-duration: var(--spring-247-25-d);
+}
+
+@media (min-width: 810px) and (max-width: 999.98px) {
+  .cs-group {
+    gap: var(--gap-t, var(--gap, 0px));
+  }
+  .cs-image {
+    height: var(--h-t, var(--h, auto));
+  }
+  .cs-image--ratio {
+    aspect-ratio: var(--ratio-t, var(--ratio));
+  }
+  .cs-sized {
+    width: var(--w-t, var(--w, 100%));
+    max-width: min(100%, var(--max-w-t, var(--max-w, 100%)));
+  }
+}
+
+@media (max-width: 999.98px) {
+  .cs-h2 {
+    font-size: 26px;
+  }
+  .cs-h3 {
+    font-size: 20px;
+  }
+}
+@media (min-width: 810px) and (max-width: 999.98px) {
+  .cs-dissolve-tablet {
+    display: contents;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .cs-group {
+    gap: var(--gap-m, var(--gap, 0px));
+  }
+  .cs-stack-mobile {
+    flex-direction: column;
+  }
+  .cs-dissolve-mobile {
+    display: contents;
+  }
+  .cs-group > .cs-card--fill-mobile-off {
+    height: auto;
+  }
+  .cs-grow-mobile-off,
+  .cs-image.cs-grow-mobile-off,
+  .cs-group > .cs-card.cs-grow-mobile-off {
+    flex: none;
+    width: 100%;
+  }
+  .cs-image {
+    height: var(--h-m, var(--h, auto));
+  }
+  .cs-image--ratio {
+    aspect-ratio: var(--ratio-m, var(--ratio));
+  }
+  .cs-sized {
+    width: var(--w-m, var(--w, 100%));
+    max-width: min(100%, var(--max-w-m, var(--max-w, 100%)));
+  }
+}
+
+/* Inline tones used by rich text runs (components/Segments.astro) */
+.tone-bright {
+  color: var(--white);
+}
+.tone-dim {
+  color: var(--text-40);
+}
+.tone-soft {
+  color: var(--text-70);
+}
+.w400 {
+  font-weight: 400;
+}
+.w500 {
+  font-weight: 500;
+}

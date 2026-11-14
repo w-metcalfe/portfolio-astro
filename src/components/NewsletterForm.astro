@@ -1,0 +1,211 @@
+---
+// Email signup (Mailchimp) with the "thoughtful readers" social proof row.
+import Img from './Img.astro';
+
+const MAILCHIMP = {
+  host: 'williammetcalfe.us15.list-manage.com',
+  params: { u: 'e4f2a12f1d26a166cb042134a', id: '05f392fc09', f_id: '0048a0e1f0' },
+  redirect: '/thank-you',
+};
+---
+
+<div class="signup">
+  <div class="signup__shake" data-newsletter data-host={MAILCHIMP.host} data-params={JSON.stringify(MAILCHIMP.params)} data-redirect={MAILCHIMP.redirect}>
+    <form class="signup__form" method="post" novalidate>
+      <input
+        class="signup__input"
+        type="email"
+        name="email"
+        placeholder="name@email.com"
+        autocomplete="off"
+        autocapitalize="off"
+        autocorrect="off"
+        spellcheck="false"
+        aria-label="Email address"
+        data-1p-ignore
+      />
+      <div class="signup__submit-wrap">
+        <input class="signup__submit" type="submit" value="Subscribe" />
+        <div class="signup__loading" hidden>
+          <span class="signup__spinner"></span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="readers">
+    <div class="readers__avatars">
+      <div class="readers__avatar readers__avatar--1 bordered">
+        <Img src="FNStSffsS8lVQIwhv6QqX57RdgA.jpg" alt="Avatar" sizes="30px" widths={[60, 90]} />
+      </div>
+      <div class="readers__avatar readers__avatar--2 bordered">
+        <Img src="g1zZ4EIIrAF6QXXICuqaFRk1Co.jpg" alt="Avatar" sizes="30px" widths={[60, 90]} />
+      </div>
+      <div class="readers__avatar readers__avatar--3 bordered">
+        <Img src="sEHJsjdN0pmg7sejJQMfzPlI.jpg" alt="Avatar" sizes="30px" widths={[60, 90]} />
+      </div>
+    </div>
+    <p class="readers__label">A small group of thoughtful readers</p>
+  </div>
+</div>
+
+<script>
+  import { initNewsletter } from '../scripts/newsletter';
+  initNewsletter();
+</script>
+
+<style>
+  .signup {
+    position: relative;
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 400px;
+    max-width: 100%;
+  }
+  .signup__shake {
+    width: 100%;
+  }
+  .signup__form {
+    position: relative;
+    display: flex;
+    width: 100%;
+    color: #fff;
+  }
+  .signup__input {
+    appearance: none;
+    width: 100%;
+    height: 49px;
+    padding: 15px 136px 15px 15px;
+    border-radius: 12px;
+    background: rgb(31, 31, 31);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0;
+    color: rgb(255, 255, 255);
+  }
+  .signup__input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    opacity: 1;
+  }
+  .signup__submit-wrap {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+  }
+  .signup__submit {
+    appearance: none;
+    position: relative;
+    z-index: 1;
+    width: 121px;
+    height: 100%;
+    padding: 0 15px;
+    border-radius: 7px;
+    background: rgb(38, 38, 38);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+  }
+  .signup__loading {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    background: rgb(38, 38, 38);
+    color: #fff;
+  }
+  .signup__loading[hidden] {
+    display: none;
+  }
+  .signup__spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: signup-spin 1s linear infinite;
+  }
+  @keyframes signup-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes signup-shake {
+    0% {
+      transform: translateX(0);
+    }
+    33% {
+      transform: translateX(-4px);
+    }
+    66% {
+      transform: translateX(4px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  .signup__shake.is-error {
+    animation: signup-shake 0.2s ease;
+  }
+
+  .readers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: min-content;
+  }
+  .readers__avatars {
+    position: relative;
+    flex: none;
+    width: 73px;
+    height: 30px;
+  }
+  .readers__avatar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    border-radius: 360px;
+    --bc: rgb(110, 110, 110);
+  }
+  .readers__avatar--1 {
+    left: 0;
+  }
+  .readers__avatar--2 {
+    left: calc(49.3151% - 15px);
+  }
+  .readers__avatar--3 {
+    right: 0;
+    border-radius: 999px;
+  }
+  @media (max-width: 809.98px) {
+    .signup {
+      width: 100%;
+    }
+  }
+
+  .readers__label {
+    flex: none;
+    font-size: 15px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    color: var(--text-50);
+    white-space: pre;
+  }
+</style>

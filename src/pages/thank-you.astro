@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import MessagePanel from '../components/MessagePanel.astro';
+import HeroButton from '../components/HeroButton.astro';
+---
+
+<Base title="Thanks For Subscribing! ♥️" noindex>
+  <MessagePanel
+    titleTag="h1"
+    title="Thanks for subscribing."
+    text="I don’t write often, but when I do, I try to share something useful—new projects, process insights, and what I’m learning along the way. I’m glad you’re here."
+    textWidth={495}
+    fullHeight
+  >
+    <HeroButton href="/projects" label="See my work" />
+  </MessagePanel>
+</Base>

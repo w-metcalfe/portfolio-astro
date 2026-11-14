@@ -1,0 +1,66 @@
+---
+// Text link with a trailing icon ("View all projects ↗"). `back` puts the icon first.
+import Icon from './Icon.astro';
+import type { IconName } from './icons';
+
+interface Props {
+  href: string;
+  label: string;
+  icon?: IconName;
+  /** Icon leads the label and does not rotate on hover */
+  back?: boolean;
+  external?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { href, label, icon = 'arrow-up-right', back = false, external = false, class: className, ...rest } = Astro.props;
+---
+
+<a
+  class:list={['ghost-link', { 'ghost-link--back': back }, className]}
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : undefined}
+  {...rest}
+>
+  <span class="ghost-link__label">{label}</span>
+  <Icon name={icon} size={18} class="ghost-link__icon" />
+</a>
+
+<style>
+  .ghost-link {
+    position: relative;
+    display: flex;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: min-content;
+    overflow: hidden;
+    color: var(--text-60);
+    cursor: pointer;
+    transition: color var(--spring-820-60-d) var(--spring-820-60);
+  }
+  .ghost-link__label {
+    position: relative;
+    z-index: 2;
+    flex: none;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    white-space: pre;
+  }
+  .ghost-link :global(.ghost-link__icon) {
+    transition: transform var(--spring-820-60-d) var(--spring-820-60);
+  }
+  .ghost-link--back :global(.ghost-link__icon) {
+    order: -1;
+  }
+  .ghost-link:hover {
+    color: rgb(255, 255, 255);
+  }
+  .ghost-link:not(.ghost-link--back):hover :global(.ghost-link__icon) {
+    transform: rotate(45deg);
+  }
+</style>

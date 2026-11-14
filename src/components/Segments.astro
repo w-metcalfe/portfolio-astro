@@ -1,0 +1,35 @@
+---
+// Renders rich inline text: an array of runs with optional colour / weight / italic / link.
+import type { Segment } from '../data/types';
+
+interface Props {
+  segments: Segment[];
+}
+
+const { segments } = Astro.props;
+const TONES: Record<string, string> = {
+  'rgb(255, 255, 255)': 'tone-bright',
+  'rgba(255, 255, 255, 0.4)': 'tone-dim',
+  'rgba(255, 255, 255, 0.7)': 'tone-soft',
+};
+const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// Built as a string so no whitespace is introduced between runs.
+const html = segments
+  .map((seg) => {
+    let inner = escape(seg.text).replace(/\n/g, '<br>');
+    if (seg.italic) inner = `<em>${inner}</em>`;
+    if (seg.weight && seg.weight >= 600) inner = `<strong>${inner}</strong>`;
+    const tone = seg.color ? TONES[seg.color] : undefined;
+    const style = seg.color && !tone ? ` style="color:${seg.color}"` : '';
+    const weightClass = seg.weight && seg.weight < 600 ? ` w${seg.weight}` : '';
+    if (seg.href) {
+      const href = seg.href.replace(/^\.\.\//, '/').replace(/^\.\//, '/');
+      return `<a href="${href}"${seg.external ? ' target="_blank" rel="noopener"' : ''} class="${tone ?? ''}${weightClass}"${style}>${inner}</a>`;
+    }
+    if (tone || style || weightClass) return `<span class="${tone ?? ''}${weightClass}"${style}>${inner}</span>`;
+    return inner;
+  })
+  .join('');
+---
+
+<Fragment set:html={html} />

@@ -1,0 +1,36 @@
+# Netlify build + hosting config for the Astro static site.
+
+[build]
+  command = "npm run build"   # astro check && astro build
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"         # Astro 7 needs Node >= 22.23
+
+# Hashed build assets (images, CSS, JS) never change under the same name: cache for a year.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Self-hosted fonts. Rename the file if a font is ever replaced, or the old one stays cached.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/textures/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Baseline security headers for every page.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+
+# Unknown URLs get dist/404.html automatically (Netlify default for static sites).

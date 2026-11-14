@@ -1,0 +1,72 @@
+---
+// Primary pill button ("See my work").
+import Icon from './Icon.astro';
+import type { IconName } from './icons';
+
+interface Props {
+  href: string;
+  label: string;
+  icon?: IconName;
+}
+
+const { href, label, icon = 'notebook' } = Astro.props;
+---
+
+<a class="hero-button bordered" href={href}>
+  <Icon name={icon} size={20} class="hero-button__icon" />
+  <span class="hero-button__label">{label}</span>
+</a>
+
+<style>
+  .hero-button {
+    display: flex;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    width: min-content;
+    padding: 8px 16px;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: var(--surface-1);
+    color: var(--text-80);
+    cursor: pointer;
+    box-shadow:
+      inset 0 0.602187px 1.08394px -0.916667px rgba(255, 255, 255, 0.243),
+      inset 0 2.28853px 4.11936px -1.83333px rgba(255, 255, 255, 0.235),
+      inset 0 10px 18px -2.75px rgba(255, 255, 255, 0.204),
+      0 0 20px 1px rgba(255, 255, 255, 0.03),
+      0 0 0 0 rgba(255, 255, 255, 0.08);
+    --bc: rgba(255, 255, 255, 0.12);
+    transition:
+      background-color var(--spring-500-60-d) var(--spring-500-60),
+      box-shadow var(--spring-500-60-d) var(--spring-500-60),
+      color var(--spring-500-60-d) var(--spring-500-60);
+  }
+  .hero-button :global(.hero-button__icon) {
+    margin-right: 3px;
+    color: var(--text-60);
+    transition: color var(--spring-500-60-d) var(--spring-500-60);
+  }
+  .hero-button__label {
+    position: relative;
+    z-index: 1;
+    margin-left: 3px;
+    font-size: 15px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    white-space: pre;
+  }
+  .hero-button:hover {
+    background-color: var(--surface-3);
+    color: var(--white);
+    box-shadow:
+      inset 0 0.602187px 1.08394px -0.916667px rgba(255, 255, 255, 0.24),
+      inset 0 2.28853px 4.11936px -1.83333px rgba(255, 255, 255, 0.24),
+      inset 0 10px 18px -2.75px rgba(255, 255, 255, 0.2),
+      0 0 20px 1px rgba(255, 255, 255, 0.03),
+      0 0 0 4px rgba(255, 255, 255, 0.08);
+  }
+  .hero-button:hover :global(.hero-button__icon) {
+    color: var(--white);
+  }
+</style>

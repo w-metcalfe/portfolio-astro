@@ -1,0 +1,129 @@
+---
+// Record sleeve with a vinyl peeking out: at rest the sleeve is tilted with the disc pulled out to the right;
+// on hover it straightens and the disc slides back in.
+import Img from './Img.astro';
+
+interface Props {
+  title: string;
+  artist: string;
+  image: string;
+}
+
+const { title, artist, image } = Astro.props;
+const sizes = '(min-width: 810px) 170px, 120px';
+const widths = [160, 320, 480];
+---
+
+<div class="album">
+  <div class="album__sleeve">
+    <!-- Flat copy of the cover: its corners show behind the tilted front sleeve. Decorative, so hidden from screen readers. -->
+    <div class="album__cover" aria-hidden="true">
+      <Img src={image} alt="" sizes={sizes} widths={widths} />
+    </div>
+    <div class="album__front">
+      <div class="album__disc" aria-hidden="true">
+        <Img src="Ms472CrBWmhzBbrQjCBFYy6thM.png" alt="" sizes={sizes} widths={widths} />
+        <div class="album__label">
+          <Img src={image} alt="" sizes="60px" widths={[80, 160]} />
+        </div>
+      </div>
+      <div class="album__cover">
+        <Img src={image} sizes={sizes} widths={widths} />
+      </div>
+    </div>
+  </div>
+  <div class="album__headings">
+    <p class="album__title">{title}</p>
+    <p class="album__artist">{artist}</p>
+  </div>
+</div>
+
+<style>
+  .album {
+    --album-ease: var(--spring-213-33);
+    --album-duration: var(--spring-213-33-d);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+  .album__sleeve {
+    position: relative;
+    flex: none;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+  }
+  .album__cover {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    box-shadow:
+      0 0.711334px 0.711334px -0.3px rgba(0, 0, 0, 0.07),
+      0 1.93715px 1.93715px -0.6px rgba(0, 0, 0, 0.08),
+      0 4.25328px 4.25328px -0.9px rgba(0, 0, 0, 0.09),
+      0 9.44132px 9.44132px -1.2px rgba(0, 0, 0, 0.11),
+      0 24px 24px -1.5px rgba(0, 0, 0, 0.17);
+  }
+  .album__front {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    transform: scale(1.03) rotate(-3deg);
+    transition: transform var(--album-duration) var(--album-ease);
+  }
+  .album__disc {
+    position: absolute;
+    top: 50%;
+    left: 95%;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+    transition:
+      left var(--album-duration) var(--album-ease),
+      transform var(--album-duration) var(--album-ease);
+  }
+  .album__label {
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    width: 34%;
+    aspect-ratio: 1 / 1;
+    border-radius: 180px;
+    transform: translate(-50%, -50%);
+  }
+
+  .album:hover .album__front {
+    transform: scale(1) rotate(0deg);
+  }
+  .album:hover .album__front .album__disc {
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-40deg);
+  }
+
+  .album__headings {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .album__title,
+  .album__artist {
+    width: 100%;
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    /* Titles stay on one line and may run past the cover into the column gap */
+    white-space: nowrap;
+  }
+  .album__title {
+    color: var(--white);
+  }
+  .album__artist {
+    color: var(--text-50);
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+// Small icon + label pair (client, timeframe…).
+import Icon from './Icon.astro';
+import type { IconName } from './icons';
+
+interface Props {
+  icon: IconName;
+  label: string;
+  /** "medium" = 20px icon + 15px text */
+  size?: 'small' | 'medium';
+}
+
+const { icon, label, size = 'small' } = Astro.props;
+---
+
+<span class:list={['meta', `meta--${size}`]}>
+  <Icon name={icon} size={size === 'medium' ? 20 : 18} class="meta__icon" />
+  <span class="meta__label">{label}</span>
+</span>
+
+<style>
+  .meta {
+    display: flex;
+    flex: none;
+    align-items: center;
+    width: min-content;
+    overflow: hidden;
+    color: var(--text-50);
+  }
+  .meta :global(.meta__icon) {
+    margin-right: 3px;
+  }
+  .meta__label {
+    margin-left: 3px;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    white-space: pre;
+  }
+  .meta--medium .meta__label {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+</style>

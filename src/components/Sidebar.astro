@@ -1,0 +1,617 @@
+---
+import Icon from './Icon.astro';
+import Img from './Img.astro';
+import { site, primaryNav, resourcesNav, type NavKey, type NavItem } from '../data/site';
+
+interface Props {
+  /** Which nav item is highlighted as the current page */
+  active?: NavKey;
+}
+
+const { active } = Astro.props;
+const drawerNav: NavItem[] = [...primaryNav, ...resourcesNav];
+const avatarAlt =
+  '3D emoji-style avatar of a smiling man with red hair, a full beard, glasses, and blue eyes, set against a soft peach gradient background. The character has a cheerful, animated expression with an open mouth and raised eyebrows.';
+---
+
+<div class="nav-wrap">
+  <nav class="nav" data-nav data-open="false" aria-label="Main">
+    <div class="nav__main">
+      <div class="brand">
+        <a class="brand__avatar bordered" href="/" aria-label="Home">
+          <Img src="UzixcehdanCo6TV4gSG5EHXrA.jpg" alt={avatarAlt} sizes="42px" widths={[84, 126]} loading="eager" />
+        </a>
+        <div class="brand__text">
+          <p class="brand__name">{site.name}</p>
+          <h2 class="brand__role">{site.role}</h2>
+        </div>
+        <button class="nav__toggle" type="button" data-nav-toggle aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-drawer">
+          <Icon name="menu" size={28} class="nav__toggle-open" />
+          <Icon name="close" size={28} class="nav__toggle-close" />
+        </button>
+      </div>
+
+      <div class="menu">
+        <div class="menu__group">
+          {primaryNav.map((item) => (
+            <a class:list={['tab', { 'is-active': item.key === active }]} href={item.href} aria-current={item.key === active ? 'page' : undefined}>
+              <span class="tab__inner">
+                <Icon name={item.icon} size={16} />
+                <span class="tab__label">{item.label}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+        <div class="menu__group menu__group--resources">
+          <p class="menu__heading">RESOURCES</p>
+          <div class="menu__items">
+            {resourcesNav.map((item) => (
+              <a
+                class:list={['tab', { 'is-active': item.key && item.key === active, 'tab--external': item.external }]}
+                href={item.href}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noopener' : undefined}
+                aria-current={item.key && item.key === active ? 'page' : undefined}
+              >
+                <span class="tab__inner">
+                  <Icon name={item.icon} size={16} />
+                  <span class="tab__label">{item.label}</span>
+                </span>
+                {item.external && <Icon name="arrow-up-right" size={16} class="tab__arrow" />}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="drawer" id="nav-drawer" data-nav-drawer>
+        <div class="drawer__inner">
+          <div class="drawer__list">
+            {drawerNav.map((item) => (
+              <a class="drawer__link" href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}>
+                <Icon name={item.icon} size={18} />
+                <span>{item.label}</span>
+              </a>
+            ))}
+          </div>
+          <a class="resume resume--large bordered" href={site.resumeUrl} target="_blank" rel="noopener">
+            <Icon name="download" size={20} />
+            <span>Download resume</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav__bottom">
+      <div class="clock-wrap bordered">
+        <div class="clock bordered">
+          <div class="clock__content">
+            <p class="clock__date" data-clock-date></p>
+            <div class="clock__time-row">
+              <span class="clock__dot"></span>
+              <p class="clock__time" data-clock-time></p>
+            </div>
+            <p class="clock__place">{site.location}</p>
+          </div>
+          <div class="clock__pattern" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="resume-wrap">
+        <a class="resume bordered" href={site.resumeUrl} target="_blank" rel="noopener">
+          <Icon name="download" size={20} />
+          <span>Download resume</span>
+        </a>
+      </div>
+      <div class="nav__grain" aria-hidden="true"></div>
+    </div>
+  </nav>
+</div>
+
+<script>
+  import { initSidebar } from '../scripts/sidebar';
+  initSidebar();
+</script>
+
+<style>
+  /* ---------- Shell ---------- */
+  .nav-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: var(--sidebar-width);
+    height: 100vh;
+  }
+
+  .nav {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 24px 0 0;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .nav::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-right: 1px solid var(--border);
+    pointer-events: none;
+  }
+
+  .nav__main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 36px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* ---------- Brand ---------- */
+  .brand {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 0 18px;
+    overflow: hidden;
+  }
+  .brand__avatar {
+    flex: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    --bc: rgba(255, 255, 255, 0.1);
+  }
+  .brand__text {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 1px;
+    overflow: hidden;
+  }
+  .brand__name {
+    width: 100%;
+    font-family: var(--font-hand);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    color: var(--white);
+  }
+  .brand__role {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-60);
+  }
+
+  .nav__toggle {
+    display: none;
+    position: relative;
+    z-index: 2;
+    flex: none;
+    width: 28px;
+    height: 28px;
+    color: var(--white);
+  }
+  .nav__toggle-close {
+    display: none;
+  }
+
+  /* ---------- Desktop menu ---------- */
+  .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .menu__group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0 18px;
+    overflow: hidden;
+  }
+  .menu__group--resources {
+    gap: 16px;
+  }
+  .menu__heading {
+    width: 100%;
+    padding-left: 10px;
+    font-size: 13px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--text-40);
+  }
+  .menu__items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .tab {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--white);
+    cursor: pointer;
+    isolation: isolate;
+  }
+  /* Hover/active state animates opacity only (background on its own layer, label
+     dimmed via opacity). Uses a short plain ease-out: the 800ms linear() spring
+     easing made the fading tabs flicker in Chromium (Brave). */
+  .tab::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    background-color: var(--surface-1);
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+    transition: opacity 0.2s ease-out;
+  }
+  .tab__inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 104px;
+    height: 24px;
+    opacity: 0.6;
+    will-change: opacity;
+    transition: opacity 0.2s ease-out;
+  }
+  .tab__label {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    white-space: pre;
+  }
+  .tab__arrow {
+    display: none;
+    color: var(--text-60);
+  }
+  .tab:hover::before,
+  .tab.is-active::before {
+    opacity: 1;
+  }
+  .tab:hover .tab__inner {
+    opacity: 1;
+  }
+  .tab--external:hover .tab__arrow {
+    display: block;
+  }
+  .tab.is-active .tab__inner {
+    opacity: 0.9;
+  }
+  .tab.is-active {
+    box-shadow:
+      0 0.722625px 0.722625px -1.25px rgba(0, 0, 0, 0.18),
+      0 2.74624px 2.74624px -2.5px rgba(0, 0, 0, 0.16),
+      0 12px 12px -3.75px rgba(0, 0, 0, 0.06);
+  }
+  .tab.is-active::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* ---------- Bottom (clock + resume) ---------- */
+  .nav__bottom {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 0 0 20px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .clock-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 260px;
+    padding: 20px 18px 0;
+    overflow: hidden;
+    --bw: 1px 0 0 0;
+    --bs: dashed;
+    --bc: rgb(51, 51, 51);
+  }
+  .clock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 22px 0 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--bg);
+    box-shadow:
+      inset 0 0.602187px 2.04744px -0.833333px rgba(255, 255, 255, 0.04),
+      inset 0 2.28853px 7.78101px -1.66667px rgba(255, 255, 255, 0.04),
+      inset 0 10px 34px -2.5px rgba(255, 255, 255, 0.04);
+    --bs: dashed;
+    --bc: rgba(255, 255, 255, 0.08);
+  }
+  .clock__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    padding-left: 24px;
+    overflow: hidden;
+  }
+  .clock__date,
+  .clock__time {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--text-80);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .clock__date {
+    font-size: 18px;
+    min-height: 18px;
+  }
+  .clock__time {
+    font-size: 14px;
+    min-height: 14px;
+  }
+  .clock__time-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .clock__dot {
+    flex: none;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgb(161, 244, 80);
+  }
+  .clock__place {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--text-50);
+  }
+  .clock__pattern {
+    position: absolute;
+    z-index: 1;
+    top: -30px;
+    right: -2px;
+    bottom: -86px;
+    left: 0;
+    opacity: 0.02;
+    filter: invert(1);
+    background: url('/textures/pattern.svg') 0 0 / 50.5px auto repeat;
+    pointer-events: none;
+  }
+
+  .resume-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 18px;
+    overflow: hidden;
+  }
+  .resume {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    height: 42px;
+    padding: 0 24px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: var(--bg);
+    color: var(--text-80);
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    white-space: pre;
+    cursor: pointer;
+    box-shadow:
+      inset 0 0.557334px 1.672px -1.125px rgba(255, 255, 255, 0.07),
+      inset 0 1.69015px 5.07046px -2.25px rgba(255, 255, 255, 0.06),
+      inset 0 4.46786px 13.4036px -3.375px rgba(255, 255, 255, 0.05),
+      inset 0 14px 42px -4.5px rgba(255, 255, 255, 0.01);
+    --bs: dashed;
+    --bc: rgba(255, 255, 255, 0.1);
+    transition:
+      background-color var(--spring-500-60-d) var(--spring-500-60),
+      color var(--spring-500-60-d) var(--spring-500-60);
+  }
+  .resume:hover {
+    background-color: var(--surface-3);
+    color: var(--white);
+  }
+  .resume--large {
+    height: 52px;
+    transition: transform var(--spring-400-30-d) var(--spring-400-30);
+  }
+  .resume--large:hover {
+    background-color: var(--bg);
+    color: var(--text-80);
+    transform: translateY(-2px);
+  }
+
+  .nav__grain {
+    position: absolute;
+    z-index: 1;
+    top: -38px;
+    right: 0;
+    bottom: -10px;
+    left: 0;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background: url('/textures/grain.png') 0 0 / 128px auto repeat;
+    pointer-events: none;
+  }
+
+  /* ---------- Drawer (tablet + mobile) ---------- */
+  .drawer {
+    display: none;
+  }
+
+  @media (max-width: 999.98px) {
+    .nav-wrap {
+      left: 50%;
+      width: 100%;
+      height: auto;
+      transform: translateX(-50%);
+    }
+    .nav {
+      justify-content: center;
+      height: auto;
+      padding: 14px 40px 40px;
+      background: linear-gradient(180deg, rgb(20, 20, 20) 72%, rgba(105, 105, 105, 0) 100%);
+      border-radius: 0;
+      transition:
+        padding-bottom var(--spring-500-60-d) var(--spring-500-60),
+        border-radius var(--spring-500-60-d) var(--spring-500-60);
+    }
+    /* Solid background + bottom border fade in when the drawer opens */
+    .nav::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+      opacity: 0;
+      transition: opacity var(--spring-500-60-d) var(--spring-500-60);
+      pointer-events: none;
+    }
+    .nav::after {
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity var(--spring-500-60-d) var(--spring-500-60);
+    }
+    .nav__main {
+      gap: 0;
+    }
+    .brand {
+      padding: 0;
+      justify-content: space-between;
+    }
+    .nav__toggle {
+      display: block;
+    }
+    .menu,
+    .nav__bottom {
+      display: none;
+    }
+
+    .drawer {
+      display: grid;
+      grid-template-rows: 0fr;
+      width: 100%;
+      transition: grid-template-rows var(--spring-500-60-d) var(--spring-500-60);
+    }
+    .drawer__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      transition: visibility 0s linear var(--spring-500-60-d);
+    }
+    .drawer__list {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      width: 100%;
+      margin-top: 24px;
+      overflow: hidden;
+    }
+    .drawer__link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      height: 44px;
+      padding: 10px 0;
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 16px;
+      line-height: 28px;
+      letter-spacing: -0.01em;
+    }
+    .drawer__link :global(.icon) {
+      color: var(--text-60);
+    }
+
+    .nav[data-open='true'] {
+      padding-bottom: 32px;
+      border-radius: 0 0 12px 12px;
+    }
+    .nav[data-open='true']::before,
+    .nav[data-open='true']::after {
+      opacity: 1;
+    }
+    .nav[data-open='true'] .drawer {
+      grid-template-rows: 1fr;
+    }
+    .nav[data-open='true'] .drawer__inner {
+      visibility: visible;
+      transition-delay: 0s;
+    }
+    .nav[data-open='true'] .nav__toggle-open {
+      display: none;
+    }
+    .nav[data-open='true'] .nav__toggle-close {
+      display: block;
+    }
+  }
+
+  @media (max-width: 809.98px) {
+    .nav {
+      padding: 14px 20px 40px;
+      cursor: pointer;
+    }
+    .brand__name {
+      font-size: 20px;
+    }
+  }
+</style>

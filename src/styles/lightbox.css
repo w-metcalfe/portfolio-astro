@@ -1,0 +1,19 @@
+/* Click-to-zoom overlay (scripts/lightbox.ts). */
+.lightbox__backdrop {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity var(--spring-247-25-d) var(--spring-247-25);
+  cursor: zoom-out;
+}
+.lightbox__backdrop.is-open {
+  opacity: 1;
+}
+.lightbox__frame {
+  position: fixed;
+  z-index: 11;
+  overflow: hidden;
+  cursor: zoom-out;
+}

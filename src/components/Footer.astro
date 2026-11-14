@@ -1,0 +1,149 @@
+---
+import SplitText from './SplitText.astro';
+---
+
+<div class="footer-wrap">
+  <footer class="footer">
+    <div class="footer__quote">
+      <div class="footer__quote-text">
+        <SplitText class="quote" text={'" Design is not just what it looks like and feels like. Design is how it works "'} />
+        <p class="quote-author">— Steve Jobs</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="fit-text" aria-hidden="true">
+        <p>
+          <span>UX DESIGNER</span>
+        </p>
+      </div>
+    </div>
+    <div class="footer__stars" aria-hidden="true"></div>
+  </footer>
+</div>
+
+<style>
+  .footer-wrap {
+    position: relative;
+    z-index: 10;
+    flex: none;
+    width: 100%;
+  }
+  .footer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgb(20, 20, 20) 0%, rgb(23, 23, 23) 46.9067%, rgb(25, 25, 25) 99.3275%);
+  }
+  .footer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-top: 1px dashed var(--border);
+    pointer-events: none;
+  }
+
+  .footer__quote {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 64px;
+    width: 100%;
+    max-width: 800px;
+    padding: 80px 0 16px;
+  }
+  .footer__quote-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .quote {
+    width: 298px;
+    font-family: var(--font-hand);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: var(--white);
+    white-space: pre-wrap;
+  }
+  .quote-author {
+    width: 100%;
+    font-family: var(--font-hand);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: var(--text-50);
+  }
+
+  .footer__bottom {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 800px;
+    padding: 24px 0 40px;
+  }
+  /* Text scaled to exactly fill the container width (1776.3 x 284 design box). */
+  .fit-text {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1366px;
+    aspect-ratio: 1776.3 / 284;
+    container-type: inline-size;
+    overflow: visible;
+  }
+  .fit-text p {
+    font-size: calc(100cqw * 283.7011401151531 / 1776.3);
+    line-height: 1;
+    letter-spacing: calc(100cqw * -0.3 / 1776.3);
+    white-space: nowrap;
+    color: var(--text-40);
+  }
+  .fit-text span {
+    display: block;
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.1) -7%, rgba(255, 255, 255, 0) 81%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .footer__stars {
+    position: absolute;
+    z-index: 1;
+    top: 36px;
+    left: 50%;
+    width: 782px;
+    height: 424px;
+    transform: translateX(-50%);
+    opacity: 0.18;
+    background: url('/textures/stars.svg') 0 0 / 100% 100% no-repeat;
+    image-rendering: pixelated;
+    pointer-events: none;
+  }
+
+  @media (max-width: 999.98px) {
+    .footer__quote {
+      padding: 72px 0 44px;
+    }
+    .footer__bottom {
+      padding: 0 20px 56px;
+    }
+  }
+</style>

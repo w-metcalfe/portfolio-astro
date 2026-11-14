@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.netlify/
+compare/
+docs/
+CLAUDE.md
+scripts/tmp/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.log
+.claude/settings.local.json
+test-results/
+playwright-report/

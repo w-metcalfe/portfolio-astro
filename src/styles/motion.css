@@ -1,0 +1,72 @@
+/* Entrance animations ported from the original build.
+
+   [data-appear]            plays on page load
+   [data-appear="in-view"]  plays when scrolled into view (class .is-inview is added by scripts/motion.ts)
+   Tune with: --appear-x / --appear-y (offset), --appear-scale, --appear-delay,
+              --appear-ease / --appear-duration (defaults to the 170/25 spring). */
+
+@keyframes appear {
+  from {
+    opacity: 0.001;
+    transform: translate(var(--appear-x, 0px), var(--appear-y, 10px)) scale(var(--appear-scale, 1));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[data-appear] {
+  animation: appear var(--appear-duration, var(--spring-170-25-d)) var(--appear-ease, var(--spring-170-25)) var(--appear-delay, 0s) both;
+}
+
+[data-appear='in-view'] {
+  animation-play-state: paused;
+}
+[data-appear='in-view'].is-inview {
+  animation-play-state: running;
+}
+
+/* Per-character text reveal (SplitText.astro). --i is the character index. */
+@keyframes char-reveal {
+  from {
+    opacity: 0.001;
+    filter: blur(var(--reveal-blur, 10px));
+    transform: translate(var(--reveal-x, 0px), var(--reveal-y, 10px));
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: none;
+  }
+}
+
+.split-text .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.split-text .char {
+  display: inline-block;
+  animation: char-reveal var(--reveal-duration, var(--spring-200-40-d)) var(--reveal-ease, var(--spring-200-40)) calc(var(--i) * var(--reveal-stagger, 0.05s))
+    both;
+  animation-play-state: paused;
+  will-change: transform, opacity, filter;
+}
+.split-text.is-inview .char {
+  animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-appear],
+  .split-text .char {
+    animation: none;
+  }
+}
+
+/* Without JavaScript nothing would ever add .is-inview, so show everything in its final state. */
+@media (scripting: none) {
+  [data-appear],
+  .split-text .char {
+    animation: none;
+  }
+}

@@ -1,0 +1,18 @@
+---
+// Case-study headings. Markdown "#" is the page title (the <h1>), "##" a section heading, "###" a sub-heading.
+// Use <H2 maxWidth={480}> only when a heading needs a narrower measure.
+import { vars, type ResponsiveValue } from './responsive';
+
+interface Props {
+  level: 1 | 2 | 3;
+  maxWidth?: ResponsiveValue<number>;
+  width?: ResponsiveValue<number>;
+}
+const { level, maxWidth, width } = Astro.props;
+const Tag = `h${level}` as 'h1' | 'h2' | 'h3';
+const sized = [...vars('max-w', maxWidth), ...vars('w', width)];
+---
+
+<Tag class:list={[level === 3 ? 'cs-h3' : 'cs-h2', { 'cs-title': level === 1, 'cs-sized': sized.length > 0 }]} style={sized.join(';') || undefined}>
+  <slot />
+</Tag>

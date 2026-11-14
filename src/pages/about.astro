@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ExperienceList from '../components/ExperienceList.astro';
+import GhostLink from '../components/GhostLink.astro';
+import Img from '../components/Img.astro';
+import MessagePanel from '../components/MessagePanel.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { experience } from '../data/home';
+import { timeline } from '../data/about';
+---
+
+<Base title="About - William Metcalfe | UX & Product Designer" active="about">
+  <Section pb={72} gap={48} bottomRule class="about-page">
+    <div class="intro">
+      <PageHeader title="My journey" text="An overview of the experiences, projects, and decisions that guided my growth as a designer." textWidth={343} />
+      <ExperienceList items={experience} />
+    </div>
+
+    <div class="timeline">
+      {timeline.map((entry) => (
+        <article class="entry">
+          <p class="entry__label">{entry.label}</p>
+          {entry.paragraphs.map((paragraph) => (
+            <p class="entry__text">{paragraph}</p>
+          ))}
+          <div class="entry__images" data-appear="in-view">
+            {entry.images.map((image) => (
+              <div class="entry__image" data-appear="in-view">
+                <Img src={image} sizes={entry.images.length > 1 ? '(min-width: 1000px) 347px, 50vw' : undefined} widths={[512, 1024, 1600]} />
+              </div>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <GhostLink href="/projects" label="View my work" icon="arrow-right-alt" back />
+  </Section>
+
+  <MessagePanel
+    emoji="📮"
+    title="Stay connected"
+    text="From time to time, I share updates about new work and the ideas shaping my design story. If you’d like to stay connected, you’re welcome to subscribe."
+  >
+    <NewsletterForm />
+  </MessagePanel>
+</Base>
+
+<style>
+  .about-page :global(.section__inner) {
+    align-items: center;
+  }
+  .intro {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+  }
+  .timeline {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+  }
+  .entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .entry__label,
+  .entry__text {
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+  }
+  .entry__label {
+    position: relative;
+    z-index: 2;
+    color: var(--text-60);
+  }
+  .entry__text {
+    color: var(--white);
+  }
+  .entry__images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    --appear-y: 15px;
+    --appear-ease: var(--spring-247-25);
+    --appear-duration: var(--spring-247-25-d);
+  }
+  .entry__image {
+    position: relative;
+    flex: 1 0 0;
+    width: 1px;
+    aspect-ratio: 1.45455 / 1;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+</style>

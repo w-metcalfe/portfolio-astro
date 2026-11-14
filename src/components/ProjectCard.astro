@@ -1,0 +1,172 @@
+---
+import Img from './Img.astro';
+import Icon from './Icon.astro';
+import Badge from './Badge.astro';
+import Meta from './Meta.astro';
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  /** Fade/slide in when scrolled into view */
+  appear?: boolean;
+  loading?: 'lazy' | 'eager';
+  /** Override the cover image (file name in src/assets/images) */
+  image?: string;
+}
+
+const { project, appear = false, loading = 'lazy', image = project.image } = Astro.props;
+---
+
+<a class="project-card bordered" href={`/projects/${project.slug}`} data-appear={appear ? 'in-view' : undefined}>
+  <div class="project-card__media">
+    <div class="project-card__image">
+      <Img
+        src={image}
+        loading={loading}
+        fetchpriority={loading === 'eager' ? 'high' : undefined}
+        sizes="(min-width: 1000px) 700px, 100vw"
+        widths={[512, 1024, 1400, 2048]}
+      />
+    </div>
+  </div>
+  <div class="project-card__body">
+    <div class="project-card__info">
+      <div class="project-card__title-row">
+        <p class="project-card__title">
+          {project.titleMobile ? (
+            <Fragment>
+              <span class="only-wide">{project.title}</span>
+              <span class="only-mobile">{project.titleMobile}</span>
+            </Fragment>
+          ) : (
+            project.title
+          )}
+        </p>
+        <Badge label={project.tag} color={project.tagColor} />
+      </div>
+      <div class="project-card__meta">
+        <Meta icon="users" label={project.client} />
+        <Meta icon="calendar" label={project.timeframe} />
+      </div>
+      <p class="project-card__description">{project.description}</p>
+    </div>
+    <Icon name="arrow-up-right" size={22} class="project-card__arrow" />
+  </div>
+</a>
+
+<style>
+  .project-card {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 2px 2px 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: var(--surface-1);
+    cursor: pointer;
+    --bc: rgb(48, 48, 48);
+    --appear-y: 15px;
+    --appear-ease: var(--spring-247-25);
+    --appear-duration: var(--spring-247-25-d);
+    transition: background-color var(--spring-820-60-d) var(--spring-820-60);
+  }
+
+  .project-card__media {
+    position: relative;
+    display: flex;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    aspect-ratio: 1.48682 / 1;
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+  }
+  .project-card__image {
+    position: relative;
+    flex: none;
+    height: 100%;
+    aspect-ratio: 1.48889 / 1;
+    overflow: hidden;
+    transition: transform var(--spring-820-60-d) var(--spring-820-60);
+  }
+
+  .project-card__body {
+    display: flex;
+    flex: none;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    padding: 18px 16px;
+    overflow: hidden;
+  }
+  .project-card__info {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    width: 1px;
+    overflow: hidden;
+  }
+  .project-card__title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    width: 100%;
+  }
+  .project-card__title {
+    flex: none;
+    font-size: 15px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    white-space: pre;
+  }
+  .project-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .project-card__description {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--text-50);
+  }
+  .project-card :global(.project-card__arrow) {
+    color: var(--text-60);
+    transition:
+      transform var(--spring-820-60-d) var(--spring-820-60),
+      color var(--spring-820-60-d) var(--spring-820-60);
+  }
+
+  .project-card:hover {
+    background-color: rgb(36, 36, 36);
+  }
+  /* Image grows from its natural width to 106% of the frame. */
+  .project-card:hover .project-card__image {
+    transform: scale(1.0585);
+  }
+  .project-card:hover :global(.project-card__arrow) {
+    color: var(--white);
+    transform: rotate(45deg);
+  }
+
+  .only-mobile {
+    display: none;
+  }
+  @media (max-width: 809.98px) {
+    .only-wide {
+      display: none;
+    }
+    .only-mobile {
+      display: inline;
+    }
+  }
+</style>

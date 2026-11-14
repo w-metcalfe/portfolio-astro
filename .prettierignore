@@ -1,0 +1,10 @@
+dist/
+.astro/
+node_modules/
+compare/
+tests/visual/baseline/
+scripts/tmp/
+package-lock.json
+src/components/icons.ts
+src/styles/springs.css
+src/content/**/*.mdx

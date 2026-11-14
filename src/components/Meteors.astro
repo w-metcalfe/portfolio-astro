@@ -1,0 +1,101 @@
+---
+// Shooting stars + star field behind the hero. Each meteor loops independently:
+// it travels 780px / 325px along its 22.6° heading while fading out, then waits before repeating.
+interface Meteor {
+  top: string;
+  left: number;
+  width?: number;
+  scale: number;
+  duration: number;
+  delay: number;
+  repeatDelay: number;
+}
+
+const meteors: Meteor[] = [
+  { top: '40px', left: -110, width: 110, scale: 1, duration: 8, delay: 1.5, repeatDelay: 1.5 },
+  { top: '70px', left: -100, scale: 0.6, duration: 5.6, delay: 0.2, repeatDelay: 1 },
+  { top: '140px', left: -120, scale: 1.4, duration: 7, delay: 0.6, repeatDelay: 0.6 },
+  { top: '160px', left: -120, scale: 1.2, duration: 5.9, delay: 0.2, repeatDelay: 1 },
+  { top: 'calc(52.6316% - 0.5px)', left: -120, scale: 0.9, duration: 6, delay: 2, repeatDelay: 5.4 },
+  { top: '-30px', left: -100, scale: 0.7, duration: 6, delay: 2.4, repeatDelay: 2 },
+  { top: '-30px', left: -10, scale: 1.1, duration: 7.4, delay: 3.2, repeatDelay: 3.2 },
+  { top: '-40px', left: 50, scale: 0.8, duration: 5, delay: 1, repeatDelay: 1 },
+  { top: '-40px', left: -90, scale: 1.2, duration: 6, delay: 1, repeatDelay: 4.5 },
+  { top: '-30px', left: 200, scale: 1, duration: 5.6, delay: 3, repeatDelay: 3 },
+  { top: '-40px', left: 290, scale: 0.8, duration: 5.4, delay: 2, repeatDelay: 2 },
+  { top: '-40px', left: 120, scale: 0.6, duration: 5.3, delay: 5.4, repeatDelay: 1.4 },
+  { top: '-40px', left: 140, scale: 0.9, duration: 5.8, delay: 2.3, repeatDelay: 2 },
+  { top: 'calc(50% - 0.5px)', left: -100, scale: 0.8, duration: 6, delay: 5.4, repeatDelay: 1.7 },
+  { top: '10px', left: -120, scale: 1.2, duration: 7, delay: 0.6, repeatDelay: 0.6 },
+  { top: '-30px', left: 140, scale: 0.6, duration: 8, delay: 2, repeatDelay: 2 },
+  { top: '-30px', left: 140, scale: 0.7, duration: 7, delay: 2, repeatDelay: 2 },
+];
+
+// One keyframe set per meteor: the travel occupies duration / (duration + repeatDelay) of each cycle.
+const css = meteors
+  .map((m, i) => {
+    const travel = +((m.duration / (m.duration + m.repeatDelay)) * 100).toFixed(3);
+    return `@keyframes meteor-${i}{0%{opacity:.6;transform:translate(0,0) scale(1) rotate(22.6deg);animation-timing-function:cubic-bezier(.12,.23,.5,1)}${travel}%,100%{opacity:0;transform:translate(780px,325px) scale(${m.scale}) rotate(22.6deg)}}`;
+  })
+  .join('');
+---
+
+<div class="meteors" aria-hidden="true">
+  {meteors.map((m, i) => (
+    <div
+      class="meteor"
+      style={`top:${m.top};left:${m.left}px;width:${m.width ?? 100}px;animation:meteor-${i} ${m.duration + m.repeatDelay}s linear ${m.delay}s infinite`}
+    >
+      <span class="meteor__head" />
+    </div>
+  ))}
+  <div class="meteors__stars"></div>
+</div>
+<style set:html={css} is:inline></style>
+
+<style>
+  .meteors {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .meteor {
+    position: absolute;
+    z-index: 2;
+    height: 1px;
+    opacity: 0.6;
+    border-radius: 2px;
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
+    transform: rotate(22.6deg);
+    will-change: transform, opacity;
+  }
+  .meteor__head {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2px;
+    border-radius: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.6);
+  }
+  .meteors__stars {
+    position: absolute;
+    top: -38px;
+    left: calc(49.4681% - 365px);
+    width: 730px;
+    height: 396px;
+    opacity: 0.3;
+    background: url('/textures/stars-hero.svg') 0 0 / 100% 100% no-repeat;
+    image-rendering: pixelated;
+  }
+  /* Reduced motion: the meteors hold still at their starting positions instead of flying, so the hero
+     keeps its streaks and star field (hiding them outright made it look empty). The original site ignored this setting. */
+  @media (prefers-reduced-motion: reduce) {
+    .meteor {
+      animation: none !important;
+    }
+  }
+</style>

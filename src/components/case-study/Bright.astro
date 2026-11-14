@@ -1,0 +1,9 @@
+---
+// <Bright> inline run; optional weight (e.g. {400}) for a lighter run inside medium-weight text.
+import Tone from './Tone.astro';
+const { weight } = Astro.props as { weight?: number };
+---
+
+<Tone tone="bright" weight={weight}>
+  <slot />
+</Tone>

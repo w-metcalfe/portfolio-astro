@@ -1,0 +1,170 @@
+---
+// Centred message block with dotted halo: used by the newsletter section,
+// the 404 page and the thank-you pages. Actions go in the default slot.
+interface Props {
+  emoji?: string;
+  title: string;
+  text: string;
+  /** Max width of the paragraph in px */
+  textWidth?: number;
+  /** Fill the viewport height (standalone pages) */
+  fullHeight?: boolean;
+  /** No 40px side gutter on the outer band */
+  flush?: boolean;
+  /** Heading level of the title: h1 when the panel is the whole page (404, thank-you), else h4 as on the original */
+  titleTag?: 'h1' | 'h2' | 'h4';
+}
+
+const { emoji, title, text, textWidth = 480, fullHeight = false, flush = false, titleTag: TitleTag = 'h4' } = Astro.props;
+---
+
+<section class:list={['panel-section', { 'panel-section--flush': flush }]}>
+  <div class:list={['panel', { 'panel--full': fullHeight }]}>
+    <div class="panel__content" data-appear style="--appear-delay:0.6s">
+      <div class="panel__copy">
+        {emoji && (
+          <p class="panel__emoji" data-appear style="--appear-delay:0.1s" aria-hidden="true">
+            {emoji}
+          </p>
+        )}
+        <div class="panel__text">
+          <TitleTag class="panel__title" data-appear style="--appear-delay:0.1s">
+            {title}
+          </TitleTag>
+          <p class="panel__body" style={`max-width:${textWidth}px`}>
+            {text}
+          </p>
+        </div>
+      </div>
+      <slot />
+    </div>
+    <div class="panel__halo" aria-hidden="true"></div>
+  </div>
+</section>
+
+<style>
+  .panel-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 0 40px;
+  }
+  .panel-section--flush {
+    padding: 0;
+  }
+  .panel-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-top: 1px solid var(--border);
+    pointer-events: none;
+  }
+
+  .panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: var(--content-width);
+    padding: 64px 48px 120px;
+  }
+  .panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 0 dashed var(--border);
+    border-width: 0 1px;
+    pointer-events: none;
+  }
+  .panel--full {
+    height: 100vh;
+  }
+
+  .panel__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    padding: 16px 0;
+    border-radius: 8px;
+  }
+  .panel__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .panel__emoji {
+    width: 100%;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+  .panel__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .panel__title {
+    width: 100%;
+    font-size: 20px;
+    line-height: 2;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: var(--white);
+  }
+  .panel__body {
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: var(--text-60);
+  }
+
+  .panel__halo {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    opacity: 0.03;
+    filter: invert(1);
+    background: url('/textures/dots.svg') 0 0 / 32px auto repeat;
+    -webkit-mask-image: radial-gradient(47% 19% at 50% 21.4%, rgb(0, 0, 0) 35.897%, rgba(0, 0, 0, 0) 100%);
+    mask-image: radial-gradient(47% 19% at 50% 21.4%, rgb(0, 0, 0) 35.897%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+  }
+
+  @media (max-width: 999.98px) {
+    .panel-section {
+      padding: 0;
+    }
+    .panel {
+      padding: 72px 20px;
+    }
+    .panel::after {
+      border-width: 0;
+    }
+    /* Standalone pages keep a dashed rule along the top of the column */
+    .panel--full::after {
+      border-width: 1px 0 0;
+    }
+  }
+</style>

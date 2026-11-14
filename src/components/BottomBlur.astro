@@ -1,0 +1,37 @@
+---
+// Progressive blur pinned to the bottom of the viewport: eight stacked backdrop-filter
+// layers, each masked to a band, so content fades into blur as it scrolls out.
+const layers = [0.125, 0.25, 0.5, 1, 2, 4, 8, 16].map((blur, i) => {
+  const stops = [i * 12.5, (i + 1) * 12.5, (i + 2) * 12.5, (i + 3) * 12.5];
+  const parts = [`rgba(0,0,0,0) ${stops[0]}%`, `rgb(0,0,0) ${stops[1]}%`];
+  if (stops[2] <= 100) parts.push(`rgb(0,0,0) ${stops[2]}%`);
+  if (stops[3] <= 100) parts.push(`rgba(0,0,0,0) ${stops[3]}%`);
+  return { blur, z: i + 1, mask: `linear-gradient(to bottom, ${parts.join(', ')})` };
+});
+---
+
+<div class="bottom-blur" aria-hidden="true">
+  {layers.map((layer) => (
+    <div
+      style={`z-index:${layer.z};backdrop-filter:blur(${layer.blur}px);-webkit-backdrop-filter:blur(${layer.blur}px);mask-image:${layer.mask};-webkit-mask-image:${layer.mask}`}
+    />
+  ))}
+</div>
+
+<style>
+  .bottom-blur {
+    position: fixed;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 156px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .bottom-blur div {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+</style>

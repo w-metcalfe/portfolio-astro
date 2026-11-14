@@ -1,0 +1,52 @@
+---
+import '../styles/article.css';
+import '../styles/lightbox.css';
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Img from '../components/Img.astro';
+import MessagePanel from '../components/MessagePanel.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { galleryImages } from '../data/gallery';
+---
+
+<Base title="Gallery - William Metcalfe | UX & Product Designer" active="gallery">
+  <Section bottomRule compactRule="bottom" pb={72} gap={48}>
+    <PageHeader
+      title="My work"
+      text="A collection of visual explorations and shipped products that highlight the craft, clarity, and iteration behind my designs."
+    />
+    <div class="gallery">
+      {galleryImages.map((src, i) => (
+        <figure class="cs-image cs-image--ratio" style="--ratio:1.45455 / 1" data-appear={i > 1 ? 'in-view' : undefined} data-lightbox>
+          <Img src={src} loading={i > 1 ? 'lazy' : 'eager'} widths={[512, 1024, 1600, 2400]} />
+        </figure>
+      ))}
+    </div>
+  </Section>
+
+  <MessagePanel
+    emoji="📮"
+    title="Stay connected"
+    text="From time to time, I share updates about new work and the ideas shaping my design story. If you’d like to stay connected, you’re welcome to subscribe."
+  >
+    <NewsletterForm />
+  </MessagePanel>
+</Base>
+
+<script>
+  import { initLightbox } from '../scripts/lightbox';
+  initLightbox();
+</script>
+
+<style>
+  .gallery {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+    overflow: hidden;
+  }
+</style>
