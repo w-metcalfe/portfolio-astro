@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { pageMeta } from '../data/site';
 import Section from '../components/Section.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import HeroButton from '../components/HeroButton.astro';
@@ -17,7 +18,10 @@ import { experience, spotlights, faqs } from '../data/home';
 import { featuredBookmarks } from '../data/bookmarks';
 ---
 
-<Base active="home" compactTop={72}>
+<Base title={pageMeta.home.title} description={pageMeta.home.description} active="home" compactTop={72}>
+  <!-- The star field behind the hero is a CSS background the browser finds late, and it's the largest paint on this page -->
+  <link slot="head" rel="preload" href="/textures/stars-hero.svg" as="image" type="image/svg+xml" fetchpriority="high" />
+
   <!-- Hero -->
   <section class="hero">
     <div class="hero__content">

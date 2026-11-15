@@ -19,16 +19,54 @@ interface Props {
   mainClass?: string;
   /** Space reserved for the top bar on tablet/mobile (72px on the home page, 56px elsewhere) */
   compactTop?: number;
+  /** Share image (absolute or root-relative URL); defaults to /og-image.jpg */
+  ogImage?: string;
+  /** Text description of the share image (og:image:alt / twitter:image:alt) */
+  ogImageAlt?: string;
+  /** og:type; case studies use "article" */
+  ogType?: 'website' | 'article';
+  /** Extra JSON-LD nodes for this page, added to the site-wide @graph (WebSite + Person) */
+  schema?: Record<string, unknown>[];
 }
 
-const { title = site.title, description = site.description, active, path = Astro.url.pathname, noindex = false, mainClass, compactTop = 56 } = Astro.props;
+const {
+  title = site.title,
+  description = site.description,
+  active,
+  path = Astro.url.pathname,
+  noindex = false,
+  mainClass,
+  compactTop = 56,
+  ogImage: ogImageProp = '/og-image.jpg',
+  ogImageAlt = `Memoji-style avatar of ${site.name} above the words “${site.role}” and his name, on a soft peach gradient.`,
+  ogType = 'website',
+  schema = [],
+} = Astro.props;
 // Canonical URLs have no trailing slash or .html (as on the original site), whatever the build's URL format
 const cleanPath = path
   .replace(/\.html$/, '')
   .replace(/\/index$/, '/')
   .replace(/(.)\/$/, '$1');
 const canonical = new URL(cleanPath, site.url).href;
-const ogImage = new URL('/og-image.jpg', site.url).href;
+const ogImage = new URL(ogImageProp, site.url).href;
+// Structured data: the site and its author on every page, plus any page-specific nodes (case studies)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', '@id': `${site.url}/#website`, url: `${site.url}/`, name: site.name, publisher: { '@id': `${site.url}/#person` } },
+    {
+      '@type': 'Person',
+      '@id': `${site.url}/#person`,
+      name: site.name,
+      jobTitle: site.jobTitle,
+      url: `${site.url}/`,
+      image: new URL('/apple-touch-icon.png', site.url).href,
+      sameAs: [site.linkedinUrl],
+      knowsAbout: ['User experience design', 'Product design', 'User research', 'Interaction design', 'Brand design'],
+    },
+    ...schema,
+  ],
+};
 const { googleAnalyticsId, clarityProjectId } = site.analytics;
 const loadAnalytics = import.meta.env.PROD;
 ---
@@ -37,23 +75,29 @@ const loadAnalytics = import.meta.env.PROD;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <meta name="robots" content="max-image-preview:large" />}
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon-light.png" media="(prefers-color-scheme: light)" />
     <link rel="icon" href="/favicon-dark.png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+    <!-- Page-specific head tags, e.g. a preload for the page's largest above-the-fold image -->
+    <slot name="head" />
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <link rel="preload" href="/fonts/manrope-500.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-display-500.woff2" as="font" type="font/woff2" crossorigin />
     <!-- Reenie Beanie draws the name in the sidebar, above the fold on every page: preload it to avoid a fallback-font flash -->

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { pageMeta } from '../data/site';
 import Section from '../components/Section.astro';
 import PageHeader from '../components/PageHeader.astro';
 import BookmarkCard from '../components/BookmarkCard.astro';
@@ -8,7 +9,7 @@ import NewsletterForm from '../components/NewsletterForm.astro';
 import { bookmarks } from '../data/bookmarks';
 ---
 
-<Base title="Bookmarks - William Metcalfe | UX & Product Designer" active="bookmarks">
+<Base title={pageMeta.bookmarks.title} description={pageMeta.bookmarks.description} active="bookmarks">
   <Section bottomRule compactRule="bottom" pb={72} gap={48}>
     <PageHeader title="My bookmarks" text="A collection of resources I lean on when I need direction or a spark of inspiration." />
     <div class="bookmark-list">

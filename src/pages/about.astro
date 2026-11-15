@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { pageMeta } from '../data/site';
 import Section from '../components/Section.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ExperienceList from '../components/ExperienceList.astro';
@@ -11,7 +12,7 @@ import { experience } from '../data/home';
 import { timeline } from '../data/about';
 ---
 
-<Base title="About - William Metcalfe | UX & Product Designer" active="about">
+<Base title={pageMeta.about.title} description={pageMeta.about.description} active="about">
   <Section pb={72} gap={48} bottomRule class="about-page">
     <div class="intro">
       <PageHeader title="My journey" text="An overview of the experiences, projects, and decisions that guided my growth as a designer." textWidth={343} />

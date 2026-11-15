@@ -34,3 +34,13 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
 
 # Unknown URLs get dist/404.html automatically (Netlify default for static sites).
+
+# http://www.… otherwise takes two hops (→ https://www.… → apex). Send it straight to the canonical https apex.
+# The https://www → apex and http → https redirects are Netlify's built-in ones and already take one hop.
+# If Netlify's forced HTTPS upgrade runs before this rule, it never matches and nothing changes; it can't loop,
+# because the target doesn't match `from`. Check after deploy: curl -sI http://www.williammetcalfe.ca/about
+[[redirects]]
+  from = "http://www.williammetcalfe.ca/*"
+  to = "https://williammetcalfe.ca/:splat"
+  status = 301
+  force = true

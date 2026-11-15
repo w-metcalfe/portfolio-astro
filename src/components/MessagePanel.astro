@@ -11,11 +11,11 @@ interface Props {
   fullHeight?: boolean;
   /** No 40px side gutter on the outer band */
   flush?: boolean;
-  /** Heading level of the title: h1 when the panel is the whole page (404, thank-you), else h4 as on the original */
+  /** Heading level of the title: h1 when the panel is the whole page (404, thank-you), else h2 (the original used h4, which skipped levels) */
   titleTag?: 'h1' | 'h2' | 'h4';
 }
 
-const { emoji, title, text, textWidth = 480, fullHeight = false, flush = false, titleTag: TitleTag = 'h4' } = Astro.props;
+const { emoji, title, text, textWidth = 480, fullHeight = false, flush = false, titleTag: TitleTag = 'h2' } = Astro.props;
 ---
 
 <section class:list={['panel-section', { 'panel-section--flush': flush }]}>

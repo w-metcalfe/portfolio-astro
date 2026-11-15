@@ -63,7 +63,7 @@ export const bookmarks: Bookmark[] = [
   {
     title: 'Interaction Design Foundation:  Literature in UX, HCI, interaction design and usability.',
     category: 'Web Design',
-    href: 'https://www.interaction-design.org',
+    href: 'https://ixdf.org/',
     image: 'QO15kmDrpWuS5nn5EtledksC3s.png',
   },
 ];

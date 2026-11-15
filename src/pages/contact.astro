@@ -5,7 +5,7 @@ import ContactForm from '../components/ContactForm.astro';
 import Icon from '../components/Icon.astro';
 import MessagePanel from '../components/MessagePanel.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
-import { site } from '../data/site';
+import { site, pageMeta } from '../data/site';
 import type { IconName } from '../components/icons';
 
 const contacts: { icon: IconName; label: string; value: string; href: string }[] = [
@@ -14,7 +14,7 @@ const contacts: { icon: IconName; label: string; value: string; href: string }[]
 ];
 ---
 
-<Base title="Contact - William Metcalfe | UX & Product Designer" active="contact">
+<Base title={pageMeta.contact.title} description={pageMeta.contact.description} active="contact">
   <section class="contact">
     <div class="contact__inner">
       <PageHeader title="Contact me" text="Looking to connect? Send me a message and I’ll get back to you as soon as I can." />
