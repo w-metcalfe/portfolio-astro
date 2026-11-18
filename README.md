@@ -62,11 +62,11 @@ tests/visual/baseline/   reference screenshots for npm run test:visual (currentl
 
 ## Writing a case study
 
-Each case study is an MDX file in `src/content/case-studies/`. The file name becomes the URL (`nuhome.mdx` → `/projects/nuhome`), and its card on the home and projects pages comes from `src/data/projects.ts`. Copy an existing file as a starting point.
+Each case study is an MDX file in `src/content/case-studies/`. The file name becomes the URL (`needless.mdx` → `/projects/needless`), and its card on the home and projects pages comes from `src/data/projects.ts`. Copy an existing file as a starting point.
 
 ```mdx
 ---
-title: 'NuHome Brand Evolution Case Study | William Metcalfe' # under ~60 characters
+title: 'NeedLess Case Study | William Metcalfe' # under ~60 characters
 description: 'One or two sentences for search results and link previews.' # ~140–155 characters
 ---
 

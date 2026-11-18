@@ -5,7 +5,6 @@ export const PAGES = {
   'projects-green-pages': '/projects/green-pages',
   'projects-middle-school': '/projects/middle-school',
   'projects-needless': '/projects/needless',
-  'projects-nuhome': '/projects/nuhome',
   stack: '/stack',
   gallery: '/gallery',
   music: '/music',

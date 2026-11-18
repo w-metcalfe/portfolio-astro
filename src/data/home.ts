@@ -46,10 +46,10 @@ export const spotlights: Spotlight[] = [
   {
     tag: 'Shipped',
     tagColor: 'green',
-    year: '2022',
-    title: 'Launched a SaaS product that grew its user base by 300K+ in its first year',
-    text: 'Focused on human-centred design to ship a multitude of products including the all-new Middle School curriculum.',
-    image: 'KnHZX9XCgz6kZnlUTSY2Be59Lo.jpg',
+    year: '2025',
+    title: 'Took a home service company to $100K in sales in its first month',
+    text: 'Paired a unified brand with conversion-focused UX, reaching a 13% conversion rate.',
+    image: '8TE9ARyW9ndONHEX7EJjgzyM.jpg',
     stickyTop: 60,
   },
   {
@@ -64,10 +64,10 @@ export const spotlights: Spotlight[] = [
   {
     tag: 'Shipped',
     tagColor: 'green',
-    year: '2021',
-    title: 'Launched an esports league garnering $15k in investments',
-    text: 'Founded an all-Canadian esports league focused on fostering and developing the scene in Canada.',
-    image: 'jNO53udNBppdhHCwOmlRnIZ9Mk.jpg',
+    year: '2022',
+    title: 'Launched a SaaS product that grew its user base by 300K+ in its first year',
+    text: 'Focused on human-centred design to ship a multitude of products including the all-new Middle School curriculum.',
+    image: 'KnHZX9XCgz6kZnlUTSY2Be59Lo.jpg',
     stickyTop: 80,
   },
   {
@@ -77,6 +77,15 @@ export const spotlights: Spotlight[] = [
     title: 'Nominated for CO-OP Student of the Year 2022',
     text: 'Nominated for CO-OP Student of the Year during my time as a Product Designer at Peekapak.',
     image: 'aRqAwtnrbdjftJYQoBu2txamq8.jpg',
+    stickyTop: 80,
+  },
+  {
+    tag: 'Shipped',
+    tagColor: 'green',
+    year: '2021',
+    title: 'Launched an esports league garnering $15k in investments',
+    text: 'Founded an all-Canadian esports league focused on fostering and developing the scene in Canada.',
+    image: 'jNO53udNBppdhHCwOmlRnIZ9Mk.jpg',
     stickyTop: 80,
   },
 ];
@@ -111,7 +120,7 @@ export const faqs: Faq[] = [
   {
     question: 'What are some measurable outcomes from my work?',
     answer:
-      '- Supported over $1.75M in franchise sales for Koala Insulation by leading a digital UX overhaul\n\n- Generated $100K+ in new business in the first month for NuHome Calgary through CRO-focused UX strategy\n\n- Doubled leads and reduced ad costs by 37% for UROSPOT by optimizing landing page usability and conversion flows\n\n- Improved social-emotional learning outcomes by 29–32% at Peekapak by redesigning tools for student stress and time management\n\n- Led an award-winning browser extension that achieved 100% task success through iterative UX testing',
+      '- Supported over $1.75M in franchise sales for Koala Insulation by leading a digital UX overhaul\n\n- Doubled leads and reduced ad costs by 37% for UROSPOT by optimizing landing page usability and conversion flows\n\n- Improved social-emotional learning outcomes by 29–32% at Peekapak by redesigning tools for student stress and time management\n\n- Led an award-winning browser extension that achieved 100% task success through iterative UX testing',
   },
   {
     question: 'How do I incorporate AI into my UX workflow?',

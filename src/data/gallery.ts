@@ -2,7 +2,6 @@
 export const galleryImages: string[] = [
   '5NqcTHyyeQHXqhN1CNIQBHmKVJc.png',
   'tGTRwnPLzNEFVC9M7uN4F8J7irE.png',
-  'vHEAEyA9D4sdWuJIRbIR3j6D5TM.png',
   'AOqVH4NN5MFTXzKsPo5mm0LHc.png',
   'Ott9BoTCxB9Uh32qG6D5QMCqwU.png',
   'lt7xheR32Y8FHmnukG8ZhEjAqU.png',

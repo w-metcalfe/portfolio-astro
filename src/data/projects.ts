@@ -18,16 +18,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'nuhome',
-    title: 'NuHome Brand Evolution',
-    client: 'NuHome Calgary',
-    timeframe: '2025',
-    tag: 'Shipped',
-    tagColor: 'green',
-    description: 'Taking NuHome Calgary to $100K sales in the first month while establishing the brand as a top contractor in the home-service industry.',
-    image: 'jhEWc0S3ljgAH6tWOmcO6nWWIc.png',
-  },
-  {
     slug: 'green-pages',
     title: 'Green Pages',
     client: 'William & Mary University',
