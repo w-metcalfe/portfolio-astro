@@ -44,7 +44,7 @@ src/
   data/                  page content: site.ts (name, links, nav), projects.ts, home.ts, about.ts,
                          stack.ts, bookmarks.ts, music.ts, gallery.ts,
                          image-alts.json (alt text), image-focus.json (focal points)
-  scripts/               client-side behaviour (sidebar, motion, lightbox, forms, spotlights)
+  scripts/               client-side behaviour (sidebar, motion, lightbox, gallery canvas, forms, spotlights)
   styles/                global.css (fonts, tokens, reset), motion.css, springs.css, article.css, lightbox.css
   assets/images/         all images; rendered through components/Img.astro (responsive WebP)
 public/                  fonts, textures, favicons, og-image.jpg, robots.txt

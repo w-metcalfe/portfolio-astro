@@ -1,53 +1,169 @@
 ---
-import '../styles/article.css';
 import '../styles/lightbox.css';
+import type { ImageMetadata } from 'astro';
 import Base from '../layouts/Base.astro';
 import { pageMeta } from '../data/site';
-import Section from '../components/Section.astro';
-import PageHeader from '../components/PageHeader.astro';
 import Img from '../components/Img.astro';
-import MessagePanel from '../components/MessagePanel.astro';
-import NewsletterForm from '../components/NewsletterForm.astro';
 import { galleryImages } from '../data/gallery';
+
+// Each card keeps its image's own aspect ratio, which staggers the columns.
+const files = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{png,jpg,jpeg,webp}', { eager: true });
+const cards = galleryImages.map((src) => {
+  const image = files[`/src/assets/images/${src}`].default;
+  return { src, ratio: (image.width / image.height).toFixed(4) };
+});
 ---
 
-<Base title={pageMeta.gallery.title} description={pageMeta.gallery.description} active="gallery">
-  <Section bottomRule compactRule="bottom" pb={72} gap={48}>
-    <PageHeader
-      title="My work"
-      text="A collection of visual explorations and shipped products that highlight the craft, clarity, and iteration behind my designs."
-    />
-    <div class="gallery">
-      {galleryImages.map((src, i) => (
-        <figure class="cs-image cs-image--ratio" style="--ratio:1.45455 / 1" data-appear={i > 1 ? 'in-view' : undefined} data-lightbox>
-          <Img src={src} loading={i > 1 ? 'lazy' : 'eager'} widths={[512, 1024, 1600, 2400]} />
-        </figure>
+<Base title={pageMeta.gallery.title} description={pageMeta.gallery.description} active="gallery" footer={false} bottomBlur={false} mainClass="gallery-main">
+  <!-- The heading and intro stay for search engines and screen readers; the canvas has no visible title -->
+  <header class="sr-only">
+    <h1>My work</h1>
+    <p>A collection of visual explorations and shipped products that highlight the craft, clarity, and iteration behind my designs.</p>
+  </header>
+
+  <div class="canvas" data-canvas tabindex="0" aria-label="Gallery canvas. Drag, scroll or use the arrow keys to explore.">
+    <div class="canvas__cards" data-canvas-cards>
+      {cards.map(({ src, ratio }, i) => (
+        <div class="canvas-card" data-canvas-card data-ratio={ratio}>
+          <figure class="canvas-card__frame bordered" data-lightbox>
+            <Img
+              src={src}
+              loading={i < 4 ? 'eager' : 'lazy'}
+              widths={[512, 1024]}
+              sizes="(min-width: 1000px) 400px, (min-width: 810px) 320px, 240px"
+              draggable="false"
+            />
+          </figure>
+        </div>
       ))}
     </div>
-  </Section>
+  </div>
 
-  <MessagePanel
-    emoji="📮"
-    title="Stay connected"
-    text="From time to time, I share updates about new work and the ideas shaping my design story. If you’d like to stay connected, you’re welcome to subscribe."
-  >
-    <NewsletterForm />
-  </MessagePanel>
+  <!-- Without JS the images are a plain scrolling grid -->
+  <noscript>
+    <style>
+      .canvas__cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        align-items: start;
+        gap: 24px;
+        height: 100%;
+        padding: 96px 24px 160px;
+        overflow: auto;
+      }
+      .canvas-card {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+      }
+      .canvas-card .canvas-card__frame {
+        opacity: 1;
+      }
+    </style>
+  </noscript>
 </Base>
 
 <script>
-  import { initLightbox } from '../scripts/lightbox';
-  initLightbox();
+  import { initCanvas } from '../scripts/canvas';
+  const root = document.querySelector<HTMLElement>('[data-canvas]');
+  if (root) initCanvas(root);
 </script>
 
 <style>
-  .gallery {
-    display: flex;
-    flex: none;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    width: 100%;
+  /* The canvas fills the viewport beside the sidebar (desktop) or under the top bar (tablet/mobile),
+     so the page itself never scrolls. */
+  :global(html:has(.gallery-main)),
+  :global(body:has(.gallery-main)) {
     overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .canvas {
+    position: fixed;
+    inset: 0 0 0 var(--sidebar-width);
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+    background-color: var(--bg);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1.5px, transparent 1.5px);
+    background-size: 40px 40px;
+  }
+  .canvas:focus-visible {
+    outline-offset: -4px;
+  }
+  .canvas:global(.is-dragging),
+  .canvas:global(.is-dragging) * {
+    cursor: grabbing !important;
+  }
+
+  .canvas__cards {
+    position: absolute;
+    inset: 0;
+  }
+
+  .canvas-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform;
+  }
+
+  .canvas-card__frame {
+    width: 100%;
+    height: 100%;
+    /* Same frame as the home page project cards: 2px of surface-1 inside a 1px rgb(48, 48, 48) line */
+    padding: 2px;
+    border-radius: 22px;
+    background: var(--surface-1);
+    --bc: rgb(48, 48, 48);
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.3),
+      0 18px 40px rgba(0, 0, 0, 0.45);
+    cursor: zoom-in;
+    opacity: 0;
+    transition: translate var(--spring-300-30-d) var(--spring-300-30);
+  }
+  .canvas-card__frame :global(img) {
+    border-radius: 20px;
+    pointer-events: none;
+    -webkit-user-drag: none;
+  }
+  .canvas-card:global(.is-shown) .canvas-card__frame {
+    opacity: 1;
+    animation: card-pop var(--spring-170-25-d) var(--spring-170-25) var(--delay, 0ms) backwards;
+  }
+  /* Lift on hover (not while dragging) */
+  @media (hover: hover) {
+    .canvas:not(:global(.is-dragging)) .canvas-card__frame:hover {
+      translate: 0 -4px;
+    }
+  }
+
+  @keyframes card-pop {
+    from {
+      opacity: 0;
+      scale: 0.75;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+
+  @media (max-width: 999.98px) {
+    .canvas {
+      inset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .canvas-card:global(.is-shown) .canvas-card__frame {
+      animation: none;
+    }
+    .canvas-card__frame {
+      transition: none;
+    }
   }
 </style>
