@@ -2,7 +2,7 @@
 // Page title + short intro at the top of inner pages.
 interface Props {
   title: string;
-  text: string;
+  text?: string;
   /** Max width of the title in px */
   titleWidth?: number;
   /** Width of the intro paragraph in px */
@@ -16,9 +16,11 @@ const { title, text, titleWidth = 480, textWidth = 322 } = Astro.props;
   <h1 class="page-header__title" style={`max-width:${titleWidth}px`}>
     {title}
   </h1>
-  <p class="page-header__text" style={`width:${textWidth}px`}>
-    {text}
-  </p>
+  {text && (
+    <p class="page-header__text" style={`width:${textWidth}px`}>
+      {text}
+    </p>
+  )}
 </header>
 
 <style>

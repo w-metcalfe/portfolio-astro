@@ -85,6 +85,6 @@ export const timeline: TimelineEntry[] = [
       'This brings me to my current role as a Lead UX designer at GIANT Creative. I own end-to-end UX strategy and execution for data-intensive web platforms across franchise, home services, and non-profit clients.',
       'My work focuses on conversion-driven UX initiatives informed by user behavior analysis, CRO principles, and iterative testing. I collaborate closely with cross-functional teams to improve lead quality and engagement, with a proven track record of delivering strong return on investment. This role brings together everything I have learned so far, from research and strategy to execution and measurement.',
     ],
-    images: ['cQqI4Mq2jI7DdjVIaUa8EQJn1FQ.jpg'],
+    images: ['giant-creative-team.webp'],
   },
 ];

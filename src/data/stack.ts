@@ -12,7 +12,7 @@ export const toolGroups: ToolGroup[] = [
     items: [
       { title: 'Figma', category: 'UX Design', href: 'https://www.figma.com/', image: '6XuSCK09eLRql95mSTtpK6t9q4.png' },
       { title: 'Framer', category: 'Web Design', href: 'https://www.framer.com/', image: 'ZmOuFXkoGoEpOrAIJdOqFqdcs0.png' },
-      { title: 'Claude', category: 'Strategy & Reasoning', href: 'https://claude.com/product/overview', image: '2s4UP5Kg28sU2QunNorK8oH6ak.jpg' },
+      { title: 'Claude', category: 'Engineering', href: 'https://claude.com/product/overview', image: '2s4UP5Kg28sU2QunNorK8oH6ak.jpg' },
       { title: 'Codex', category: 'Engineering', href: 'https://openai.com/codex/', image: 'cPQfChtpPIKRpc9ouHpNrQT6jA.webp' },
       { title: 'Miro', category: 'Strategy', href: 'https://miro.com', image: 'bmlmukimIaYjkOwu5uQPYXj24zI.png' },
       { title: 'Mobbin', category: 'Inspiration', href: 'https://mobbin.com', image: 'Z3c5X9MTR9x9I9quBGqINRir4w.png' },

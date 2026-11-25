@@ -11,7 +11,7 @@ import { albumGroups } from '../data/music';
 
 <Base title={pageMeta.music.title} description={pageMeta.music.description} active="music">
   <Section bottomRule compactRule="bottom" pb={72} gap={48}>
-    <PageHeader title="My music" text="A set of my favourite songs and the tracks that are shaping my current rotation." />
+    <PageHeader title="My music" />
     {albumGroups.map((group) => (
       <div class="albums">
         <p class="albums__title">{group.title}</p>

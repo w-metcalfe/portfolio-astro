@@ -11,7 +11,7 @@ import { toolGroups } from '../data/stack';
 
 <Base title={pageMeta.stack.title} description={pageMeta.stack.description} active="stack">
   <Section bottomRule compactRule="bottom-tablet" pb={72} gap={48}>
-    <PageHeader title="My stack" text="The tools and technologies that power my work, every step of the way." />
+    <PageHeader title="My stack" />
     {toolGroups.map((group, i) => (
       <div class="tools">
         <p class="tools__title">{group.title}</p>

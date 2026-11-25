@@ -11,7 +11,7 @@ import { bookmarks } from '../data/bookmarks';
 
 <Base title={pageMeta.bookmarks.title} description={pageMeta.bookmarks.description} active="bookmarks">
   <Section bottomRule compactRule="bottom" pb={72} gap={48}>
-    <PageHeader title="My bookmarks" text="A collection of resources I lean on when I need direction or a spark of inspiration." />
+    <PageHeader title="My bookmarks" />
     <div class="bookmark-list">
       {bookmarks.map((bookmark) => (
         <div class="bookmark-list__cell">
